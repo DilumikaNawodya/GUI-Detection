@@ -1,16 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jan 14 01:47:32 2022
-
-@author: dncna
-"""
-
 import cv2
-import os
-import requests
-import json
-from base64 import b64encode
-import time
 import numpy as np
 
 
@@ -183,7 +171,7 @@ class Text:
     *** Visualization ***
     *********************
     '''
-    def visualize_element(self, img, color=(0, 0, 255), line=1, show=True):
+    def visualize_element(self, img, color=(0, 0, 255), line=1, show=False):
         loc = self.location
         cv2.rectangle(img, (loc['left'], loc['top']), (loc['right'], loc['bottom']), color, line)
         if show:
@@ -191,67 +179,3 @@ class Text:
             cv2.imshow('text', img)
             cv2.waitKey()
             cv2.destroyWindow('text')
-            
-
-
-def Google_OCR_makeImageData(imgpath):
-    with open(imgpath, 'rb') as f:
-        ctxt = b64encode(f.read()).decode()
-        img_req = {
-            'image': {
-                'content': ctxt
-            },
-            'features': [{
-                'type': 'DOCUMENT_TEXT_DETECTION',
-                'maxResults': 1
-            }]
-        }
-    return json.dumps({"requests": img_req}).encode()
-
-
-def ocr_detection_google(imgpath):
-    
-    url = 'https://vision.googleapis.com/v1/images:annotate'
-    api_key = 'AIzaSyDUc4iOUASJQYkVwSomIArTKhE2C6bHK8U'
-    imgdata = Google_OCR_makeImageData(imgpath)
-    response = requests.post(
-        url,
-        data=imgdata,
-        params={'key': api_key},
-        headers={'Content_Type': 'application/json'}
-    )
-    
-    print("*** Please replace the Google OCR key at detect_text/ocr.py line 28 with your own (apply in https://cloud.google.com/vision) ***")
-    if response.json()['responses'] == [{}]:
-        return None
-    else:
-        return response.json()['responses'][0]['textAnnotations'][1:]
-    
-    
-def text_cvt_orc_format(ocr_result):
-    texts = []
-    if ocr_result is not None:
-        for i, result in enumerate(ocr_result):
-            error = False
-            x_coordinates = []
-            y_coordinates = []
-            text_location = result['boundingPoly']['vertices']
-            content = result['description']
-            for loc in text_location:
-                if 'x' not in loc or 'y' not in loc:
-                    error = True
-                    break
-                x_coordinates.append(loc['x'])
-                y_coordinates.append(loc['y'])
-            if error: continue
-            location = {'left': min(x_coordinates), 'top': min(y_coordinates),
-                        'right': max(x_coordinates), 'bottom': max(y_coordinates)}
-            texts.append(Text(i, content, location))
-    return texts
-
-k = text_cvt_orc_format(ocr_detection_google('./test.jpeg'))
-
-img = cv2.imread('./test.jpeg')
-
-for i in k:
-    i.visualize_element(img=img)
