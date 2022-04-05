@@ -18,7 +18,7 @@ data = json.load(f)
 ncomponents = len(data['combinedjson']['compos'])
 screen_size = [data['combinedjson']['img_shape']
                [0], data['combinedjson']['img_shape'][1]]
-
+screen_size
 for i in range(ncomponents):
     name = data['combinedjson']['compos'][i]["name"]
     if (name == "Banner"):
@@ -43,10 +43,10 @@ for i in range(ncomponents):
         fab_main(data, i, ncomponents)
         break
     elif (name == "Lists"):
-        lists_main(data, i, ncomponents)
+        lists_main(data, i, ncomponents, screen_size)
         break
     elif (name == "Navigation Drawer"):
-        navdrawer_main(data, i, ncomponents)
+        navdrawer_main(data, i, ncomponents, screen_size)
         break
     elif (name == "Tabs"):
         tabs_main(data, i, ncomponents)

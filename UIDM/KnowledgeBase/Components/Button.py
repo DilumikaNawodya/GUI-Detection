@@ -1,5 +1,10 @@
 def button_main(data, i, ncomponents):
+    button = data['combinedjson']['compos'][i]
+    embeddedcompos = button['embeddedcompos']
+    embeddedtext = button['embeddedtext']
+
     # Call Functions
+    button_text_wrap(len(embeddedtext))
     return
 
 # Use capitalization for languages that allow capitalization.
