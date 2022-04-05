@@ -1,5 +1,22 @@
 def bottomNav_main(data, i, ncomponents):
+    bottomNav = data['combinedjson']['compos'][i]
+    embeddedcompos = bottomNav['embeddedcompos']
+    embeddedtext = bottomNav['embeddedtext']
+    icon = False
+    tabs = False
+    icon_count = 0
+    for j in len(embeddedcompos):
+        if (embeddedcompos[j]['name'] == "Icon"):
+            icon = True
+            icon_count += 1
+        if (embeddedcompos[j]['name'] == "Tabs"):
+            tabs = True
+
     # Call Functions
+    n_destinations(icon_count)
+    tabs_w_bottomnav(tabs, bottomNav)
+    text_size(embeddedtext)
+    text_lines_banner(embeddedtext)
     return
 
 
@@ -15,34 +32,41 @@ def tabs_w_bottomnav(tabs, bottomnav):
     return "Error"
 
 
-def text_trunacate(text_meta, text_detect):
-    for i in len(text_detect):
-        text_detect[i] == text_meta[i]
-        return "Success"
-    return "Error"
-
-
-def text_size(text_detect_size):
-    result = all(height == text_detect_size[0] for height in text_detect_size)
-    if (result):
-        return "Success"
-    return "Error"
-
-
-def text_lines_banner(text_line):
-    if (text_line > 1):
-        return "Caution"
+def text_size(embeddedtext):
+    height = embeddedtext[0]['height']
+    for i in range(1, len(embeddedtext)):
+        if (embeddedtext[i]['height'] != height):
+            return "Error"
     return "Success"
 
-# Use the Primary or High-Emphasis “On” color for the active destination in a bottom navigation bar.
 
-
-def destination_color(destination_colors):
-    color_set = set(destination_colors)
-    if (color_set > 2):
-        return "Error"
+def text_lines_banner(embeddedtext):
+    height = embeddedtext[0]['height']
+    for i in range(1, len(embeddedtext)):
+        if (embeddedtext[i]['height'] == height*2 or embeddedtext[i]['height'] == height//2):
+            return "Caution"
     return "Success"
 
-# On mobile (in landscape mode) or tablet, bottom navigation destinations can retain the same spacing used in portrait mode, rather than being equally distributed across the bottom app bar.
 
 # On mobile (in landscape mode) or tablet, bottom navigation destinations can be positioned horizontally instead of stacked. In this case, it’s recommended that destinations are evenly distributed across the entire bar.
+
+
+########################################
+### Meta file data extraction needed ###
+########################################
+
+# def text_trunacate(text_meta, text_detect):
+#     for i in len(text_detect):
+#         text_detect[i] == text_meta[i]
+#         return "Success"
+#     return "Error"
+
+##############################
+### Color Detection Needed ###
+##############################
+
+# def destination_color(destination_colors):
+#     color_set = set(destination_colors)
+#     if (color_set > 2):
+#         return "Error"
+#     return "Success"
