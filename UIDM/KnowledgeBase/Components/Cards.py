@@ -1,10 +1,10 @@
 def cards_main(data, i, ncomponents):
     card = data['combinedjson']['compos'][i]
-    embeddedcompos = card['embeddedcompos']
-    embeddedtext = card['embeddedtext']
+    embeddedtext = card.get('embeddedtext')
 
     # Call Functions
-    card_content(embeddedtext)
+    if (embeddedtext):
+        card_content(embeddedtext)
     return
 
 

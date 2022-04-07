@@ -1,13 +1,16 @@
 def dialogs_main(data, i, ncomponents):
     dialog = data['combinedjson']['compos'][i]
-    embeddedcompos = dialog['embeddedcompos']
-    embeddedtext = dialog['embeddedtext']
-    textmeta = dialog['textmeta']
+    embeddedcompos = dialog.get('embeddedcompos')
+    embeddedtext = dialog.get('embeddedtext')
+    textmeta = dialog.get('textmeta')
 
     # Call Functions
-    dialog_actions(embeddedcompos)
-    dialog_title(embeddedtext, textmeta)
-    dialog_title_content(dialog,embeddedtext)
+    if (embeddedcompos):
+        dialog_actions(embeddedcompos)
+    if (embeddedtext):
+        dialog_title_content(dialog, embeddedtext)
+        if (textmeta):
+            dialog_title(embeddedtext, textmeta)
     return
 
 
@@ -34,7 +37,7 @@ def dialog_title(embeddedtext, textmeta):
 
 
 def dialog_title_content(dialog, embeddedtext):
-    topbar_bottom_edge= dialog['position']['row_max']
+    topbar_bottom_edge = dialog['position']['row_max']
     text_top_edge = embeddedtext[0]['position']['row_min']
     if (topbar_bottom_edge > text_top_edge):
         return "Success"

@@ -1,34 +1,35 @@
 def bottomappbar_main(data, i, ncomponents):
     bottomappbar = data['combinedjson']['compos'][i]
-    embeddedcompos = bottomappbar['embeddedcompos']
-    actions = len(embeddedcompos)
+    embeddedcompos = bottomappbar.get('embeddedcompos')
     bar_top_edge = bottomappbar['position']['column_min']
-    FAB = False
-    keyboard = False
-    snackbar = False
-    for j in actions:
-        if (embeddedcompos[j]['name'] == "Floating Action Button"):
-            FAB = True
-            FAB_top_edge = embeddedcompos[j]['position']['column_min']
-            FAB_bottom_edge = embeddedcompos[j]['position']['column_max']
-            break
-        if (embeddedcompos[j]['name'] == "Keyboard"):
-            keyboard = True
-            break
-        if (embeddedcompos[j]['name'] == "snackbar"):
-            snackbar = True
-            snackbar_bottom_edge = embeddedcompos[j]['position']['column_max']
-            break
+    if (embeddedcompos):
+        FAB = False
+        keyboard = False
+        snackbar = False
+        for j in len(embeddedcompos):
+            if (embeddedcompos[j]['name'] == "Floating Action Button"):
+                FAB = True
+                FAB_top_edge = embeddedcompos[j]['position']['column_min']
+                FAB_bottom_edge = embeddedcompos[j]['position']['column_max']
+                break
+            if (embeddedcompos[j]['name'] == "Keyboard"):
+                keyboard = True
+                break
+            if (embeddedcompos[j]['name'] == "snackbar"):
+                snackbar = True
+                snackbar_bottom_edge = embeddedcompos[j]['position']['column_max']
+                break
+        # Call Functions
+        app_bar_actions(FAB, len(embeddedcompos))
+        FAB_placement(bar_top_edge, FAB_top_edge, FAB_bottom_edge)
+        cover_bottom_bar(keyboard)
+        snackbar_toast(snackbar, snackbar_bottom_edge,
+                       bar_top_edge, FAB_top_edge)
 
-    # Call Functions
-    app_bar_actions(FAB, actions)
-    FAB_placement(bar_top_edge, FAB_top_edge, FAB_bottom_edge)
-    cover_bottom_bar(keyboard)
-    snackbar_toast(snackbar, snackbar_bottom_edge, bar_top_edge, FAB_top_edge)
     return
 
-# Guideline 1
 
+# Guideline 1
 
 def app_bar_actions(FAB, actions):
     if (FAB):
