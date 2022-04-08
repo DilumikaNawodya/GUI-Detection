@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import cloudinary
 from pathlib import Path
 import os
 
@@ -34,7 +35,6 @@ CORS_EXPOSE_HEADERS = (
     'Access-Control-Allow-Origin: *',
 )
 
-import cloudinary
 cloudinary.config(
     cloud_name='djitbuo4i',
     api_key='753566235173127',
@@ -143,9 +143,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL_ORIGINAL = os.path.join(MEDIA_ROOT,'originalimage')
-MEDIA_URL_DETECTED = os.path.join(MEDIA_ROOT,'detectedimage')
-MEDIA_URL_FINALJSON = os.path.join(MEDIA_ROOT,'finaljsonfile')
-MEDIA_URL_METAJSON = os.path.join(MEDIA_ROOT,'metajsonfile')
+MEDIA_URL_ORIGINAL = os.path.join(MEDIA_ROOT, 'originalimage')
+MEDIA_URL_DETECTED = os.path.join(MEDIA_ROOT, 'detectedimage')
+MEDIA_URL_FINALJSON = os.path.join(MEDIA_ROOT, 'finaljsonfile')
+MEDIA_URL_METAJSON = os.path.join(MEDIA_ROOT, 'metajsonfile')

@@ -1,0 +1,360 @@
+{
+  "combinedjson": {
+    "compos": [
+      {
+        "id": 0,
+        "class": "Compo",
+        "height": 62,
+        "width": 80,
+        "position": {
+          "column_min": 31,
+          "row_min": 0,
+          "column_max": 111,
+          "row_max": 62
+        },
+        "name": null
+      },
+      {
+        "id": 1,
+        "class": "Compo",
+        "height": 20,
+        "width": 3,
+        "position": {
+          "column_min": 515,
+          "row_min": 34,
+          "column_max": 518,
+          "row_max": 54
+        },
+        "name": null
+      },
+      {
+        "id": 2,
+        "class": "Compo",
+        "height": 20,
+        "width": 4,
+        "position": {
+          "column_min": 597,
+          "row_min": 34,
+          "column_max": 601,
+          "row_max": 54
+        },
+        "name": null
+      },
+      {
+        "id": 3,
+        "class": "Compo",
+        "height": 3,
+        "width": 19,
+        "position": {
+          "column_min": 485,
+          "row_min": 43,
+          "column_max": 504,
+          "row_max": 46
+        },
+        "name": null
+      },
+      {
+        "id": 4,
+        "class": "Compo",
+        "height": 80,
+        "width": 80,
+        "position": {
+          "column_min": 31,
+          "row_min": 126,
+          "column_max": 111,
+          "row_max": 206
+        },
+        "name": null
+      },
+      {
+        "id": 5,
+        "class": "Compo",
+        "height": 3,
+        "width": 19,
+        "position": {
+          "column_min": 349,
+          "row_min": 187,
+          "column_max": 368,
+          "row_max": 190
+        },
+        "name": null
+      },
+      {
+        "id": 6,
+        "class": "Compo",
+        "height": 80,
+        "width": 79,
+        "position": {
+          "column_min": 32,
+          "row_min": 270,
+          "column_max": 111,
+          "row_max": 350
+        },
+        "name": null
+      },
+      {
+        "id": 7,
+        "class": "Compo",
+        "height": 80,
+        "width": 80,
+        "position": {
+          "column_min": 31,
+          "row_min": 414,
+          "column_max": 111,
+          "row_max": 494
+        },
+        "name": null
+      },
+      {
+        "id": 8,
+        "class": "Compo",
+        "height": 3,
+        "width": 19,
+        "position": {
+          "column_min": 291,
+          "row_min": 475,
+          "column_max": 310,
+          "row_max": 478
+        },
+        "name": null
+      },
+      {
+        "id": 10,
+        "class": "Compo",
+        "height": 19,
+        "width": 19,
+        "position": {
+          "column_min": 577,
+          "row_min": 650,
+          "column_max": 596,
+          "row_max": 669
+        },
+        "name": null
+      },
+      {
+        "id": 11,
+        "class": "Compo",
+        "height": 8,
+        "width": 8,
+        "position": {
+          "column_min": 671,
+          "row_min": 648,
+          "column_max": 679,
+          "row_max": 656
+        },
+        "name": null
+      },
+      {
+        "id": 12,
+        "class": "Compo",
+        "height": 8,
+        "width": 8,
+        "position": {
+          "column_min": 671,
+          "row_min": 660,
+          "column_max": 679,
+          "row_max": 668
+        },
+        "name": null
+      },
+      {
+        "id": 13,
+        "class": "Compo",
+        "height": 8,
+        "width": 8,
+        "position": {
+          "column_min": 671,
+          "row_min": 672,
+          "column_max": 679,
+          "row_max": 680
+        },
+        "name": null
+      }
+    ],
+    "texts": [
+      {
+        "id": 14,
+        "class": "Text",
+        "height": 29,
+        "width": 322,
+        "position": {
+          "column_min": 143,
+          "row_min": 30,
+          "column_max": 465,
+          "row_max": 59
+        },
+        "text_content": "to Sandra , Scott , Jennifer"
+      },
+      {
+        "id": 15,
+        "class": "Text",
+        "height": 29,
+        "width": 55,
+        "position": {
+          "column_min": 529,
+          "row_min": 29,
+          "column_max": 584,
+          "row_max": 58
+        },
+        "text_content": "wish"
+      },
+      {
+        "id": 16,
+        "class": "Text",
+        "height": 28,
+        "width": 89,
+        "position": {
+          "column_min": 612,
+          "row_min": 29,
+          "column_max": 701,
+          "row_max": 57
+        },
+        "text_content": "could ..."
+      },
+      {
+        "id": 17,
+        "class": "Text",
+        "height": 27,
+        "width": 58,
+        "position": {
+          "column_min": 144,
+          "row_min": 132,
+          "column_max": 202,
+          "row_max": 159
+        },
+        "text_content": "Yes !"
+      },
+      {
+        "id": 18,
+        "class": "Text",
+        "height": 36,
+        "width": 185,
+        "position": {
+          "column_min": 145,
+          "row_min": 170,
+          "column_max": 330,
+          "row_max": 206
+        },
+        "text_content": "Sandra Adams"
+      },
+      {
+        "id": 19,
+        "class": "Text",
+        "height": 36,
+        "width": 320,
+        "position": {
+          "column_min": 380,
+          "row_min": 170,
+          "column_max": 700,
+          "row_max": 206
+        },
+        "text_content": "Do you have Paris reco ...."
+      },
+      {
+        "id": 20,
+        "class": "Text",
+        "height": 39,
+        "width": 177,
+        "position": {
+          "column_min": 145,
+          "row_min": 271,
+          "column_max": 322,
+          "row_max": 310
+        },
+        "text_content": "Birthday Gift"
+      },
+      {
+        "id": 21,
+        "class": "Text",
+        "height": 32,
+        "width": 190,
+        "position": {
+          "column_min": 145,
+          "row_min": 317,
+          "column_max": 335,
+          "row_max": 349
+        },
+        "text_content": "Jonathen Chen"
+      },
+      {
+        "id": 22,
+        "class": "Text",
+        "height": 32,
+        "width": 301,
+        "position": {
+          "column_min": 386,
+          "row_min": 317,
+          "column_max": 687,
+          "row_max": 349
+        },
+        "text_content": "Have any ideas about ..."
+      },
+      {
+        "id": 23,
+        "class": "Text",
+        "height": 34,
+        "width": 176,
+        "position": {
+          "column_min": 147,
+          "row_min": 420,
+          "column_max": 323,
+          "row_max": 454
+        },
+        "text_content": "Recipe to try"
+      },
+      {
+        "id": 24,
+        "class": "Text",
+        "height": 29,
+        "width": 127,
+        "position": {
+          "column_min": 145,
+          "row_min": 460,
+          "column_max": 272,
+          "row_max": 489
+        },
+        "text_content": "Britta Holt"
+      },
+      {
+        "id": 25,
+        "class": "Text",
+        "height": 33,
+        "width": 355,
+        "position": {
+          "column_min": 320,
+          "row_min": 460,
+          "column_max": 675,
+          "row_max": 493
+        },
+        "text_content": "We should eat this : grated ..."
+      },
+      {
+        "id": 26,
+        "class": "Text",
+        "height": 40,
+        "width": 173,
+        "position": {
+          "column_min": 145,
+          "row_min": 560,
+          "column_max": 318,
+          "row_max": 600
+        },
+        "text_content": "Giants gam"
+      },
+      {
+        "id": 27,
+        "class": "Text",
+        "height": 29,
+        "width": 39,
+        "position": {
+          "column_min": 35,
+          "row_min": 648,
+          "column_max": 74,
+          "row_max": 677
+        },
+        "text_content": "III E"
+      }
+    ],
+    "img_shape": [720, 720, 3]
+  }
+}

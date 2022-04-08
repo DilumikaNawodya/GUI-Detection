@@ -172,7 +172,8 @@ def rm_line_v_h(binary, show=False, max_line_thickness=C.THRESHOLD_LINE_THICKNES
     def extract_line_area(line, start_idx, flag='v'):
         for e, l in enumerate(line):
             if flag == 'v':
-                map_line[start_idx + e, l[0]:l[1]] = binary[start_idx + e, l[0]:l[1]]
+                map_line[start_idx + e, l[0]:l[1]
+                         ] = binary[start_idx + e, l[0]:l[1]]
 
     map_line = np.zeros(binary.shape[:2], dtype=np.uint8)
     cv2.imshow('binary', binary)
@@ -294,7 +295,7 @@ def rm_noise_compos(compos):
 
 
 def rm_noise_in_large_img(compos, org,
-                      max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
+                          max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
     row, column = org.shape[:2]
     remain = np.full(len(compos), True)
     new_compos = []
@@ -319,9 +320,11 @@ def detect_compos_in_img(compos, binary, org, max_compo_scale=C.THRESHOLD_COMPO_
             bin_clip = compo.compo_clipping(binary)
             bin_clip = pre.reverse_binary(bin_clip, show=show)
 
-            compos_rec, compos_nonrec = component_detection(bin_clip, test=False, step_h=10, step_v=10, rec_detect=True)
+            compos_rec, compos_nonrec = component_detection(
+                bin_clip, test=False, step_h=10, step_v=10, rec_detect=True)
             for compo_rec in compos_rec:
-                compo_rec.compo_relative_position(compo.bbox.col_min, compo.bbox.row_min)
+                compo_rec.compo_relative_position(
+                    compo.bbox.col_min, compo.bbox.row_min)
                 if compo_rec.bbox_area / compo.bbox_area < 0.8 and compo_rec.bbox.height > 20 and compo_rec.bbox.width > 20:
                     compos_new.append(compo_rec)
                     # draw.draw_bounding_box(org, [compo_rec], show=True)
@@ -363,13 +366,15 @@ def is_block(clip, thread=0.15):
     for i in range(1, 5):
         if sum(clip[side + i]) / 255 > thread * clip.shape[1]:
             blank_count += 1
-    if blank_count > 2: return False
+    if blank_count > 2:
+        return False
     # left border - scan left to right
     blank_count = 0
     for i in range(1, 5):
         if sum(clip[:, side + i]) / 255 > thread * clip.shape[0]:
             blank_count += 1
-    if blank_count > 2: return False
+    if blank_count > 2:
+        return False
 
     side = -4
     # bottom border - scan bottom up
@@ -377,13 +382,15 @@ def is_block(clip, thread=0.15):
     for i in range(-1, -5, -1):
         if sum(clip[side + i]) / 255 > thread * clip.shape[1]:
             blank_count += 1
-    if blank_count > 2: return False
+    if blank_count > 2:
+        return False
     # right border - scan right to left
     blank_count = 0
     for i in range(-1, -5, -1):
         if sum(clip[:, side + i]) / 255 > thread * clip.shape[0]:
             blank_count += 1
-    if blank_count > 2: return False
+    if blank_count > 2:
+        return False
     return True
 
 
@@ -403,7 +410,7 @@ def component_detection(binary, min_obj_area,
                         line_thickness=C.THRESHOLD_LINE_THICKNESS,
                         min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
                         max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO,
-                        step_h = 5, step_v = 2,
+                        step_h=1, step_v=1,
                         rec_detect=False, show=False, test=False):
     """
     :param binary: Binary image from pre-processing
@@ -428,10 +435,13 @@ def component_detection(binary, min_obj_area,
                 # region = util.boundary_bfs_connected_area(binary, i, j, mask)
 
                 mask_copy = mask.copy()
-                ff = cv2.floodFill(binary, mask, (j, i), None, 0, 0, cv2.FLOODFILL_MASK_ONLY)
-                if ff[0] < min_obj_area: continue
+                ff = cv2.floodFill(binary, mask, (j, i), None,
+                                   0, 0, cv2.FLOODFILL_MASK_ONLY)
+                if ff[0] < min_obj_area:
+                    continue
                 mask_copy = mask - mask_copy
-                region = np.reshape(cv2.findNonZero(mask_copy[1:-1, 1:-1]), (-1, 2))
+                region = np.reshape(cv2.findNonZero(
+                    mask_copy[1:-1, 1:-1]), (-1, 2))
                 region = [(p[1], p[0]) for p in region]
 
                 # filter out some compos
@@ -471,11 +481,11 @@ def component_detection(binary, min_obj_area,
 
 
 def nested_components_detection(grey, org, grad_thresh,
-                   show=False, write_path=None,
-                   step_h=10, step_v=10,
-                   line_thickness=C.THRESHOLD_LINE_THICKNESS,
-                   min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
-                   max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO):
+                                show=False, write_path=None,
+                                step_h=10, step_v=10,
+                                line_thickness=C.THRESHOLD_LINE_THICKNESS,
+                                min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
+                                max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO):
     '''
     :param grey: grey-scale of original image
     :return: corners: list of [(top_left, bottom_right)]
@@ -495,11 +505,14 @@ def nested_components_detection(grey, org, grad_thresh,
 
                 # flood fill algorithm to get background (layout block)
                 mask_copy = mask.copy()
-                ff = cv2.floodFill(grey, mask, (y, x), None, grad_thresh, grad_thresh, cv2.FLOODFILL_MASK_ONLY)
+                ff = cv2.floodFill(
+                    grey, mask, (y, x), None, grad_thresh, grad_thresh, cv2.FLOODFILL_MASK_ONLY)
                 # ignore small regions
-                if ff[0] < 500: continue
+                if ff[0] < 500:
+                    continue
                 mask_copy = mask - mask_copy
-                region = np.reshape(cv2.findNonZero(mask_copy[1:-1, 1:-1]), (-1, 2))
+                region = np.reshape(cv2.findNonZero(
+                    mask_copy[1:-1, 1:-1]), (-1, 2))
                 region = [(p[1], p[0]) for p in region]
 
                 compo = Component(region, grey.shape)

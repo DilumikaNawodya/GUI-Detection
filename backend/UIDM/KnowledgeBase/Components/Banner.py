@@ -21,7 +21,7 @@ def banner_main(data, i, ncomponents):
             if data['combinedjson']['compos'][j]["name"] == "Appbar: Top":
                 top_bar = j
                 break
-        top_bar_w_banner(top_bar, banner, data)
+        Ids.append(top_bar_w_banner(top_bar, banner, data))
 
     # Call Functions
     Ids.append(banner_count(data, ncomponents))

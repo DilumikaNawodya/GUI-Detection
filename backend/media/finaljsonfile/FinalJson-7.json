@@ -1,0 +1,191 @@
+{
+  "combinedjson": {
+    "compos": [
+      {
+        "id": 0,
+        "class": "Compo",
+        "height": 20,
+        "width": 20,
+        "position": {
+          "column_min": 491,
+          "row_min": 134,
+          "column_max": 511,
+          "row_max": 154
+        },
+        "name": null
+      },
+      {
+        "id": 1,
+        "class": "Compo",
+        "height": 20,
+        "width": 20,
+        "position": {
+          "column_min": 527,
+          "row_min": 134,
+          "column_max": 547,
+          "row_max": 154
+        },
+        "name": null
+      },
+      {
+        "id": 2,
+        "class": "Compo",
+        "height": 20,
+        "width": 24,
+        "position": {
+          "column_min": 559,
+          "row_min": 134,
+          "column_max": 583,
+          "row_max": 154
+        },
+        "name": null
+      },
+      {
+        "id": 3,
+        "class": "Compo",
+        "height": 40,
+        "width": 36,
+        "position": {
+          "column_min": 357,
+          "row_min": 204,
+          "column_max": 393,
+          "row_max": 244
+        },
+        "name": null
+      },
+      {
+        "id": 4,
+        "class": "Compo",
+        "height": 35,
+        "width": 35,
+        "position": {
+          "column_min": 453,
+          "row_min": 206,
+          "column_max": 488,
+          "row_max": 241
+        },
+        "name": null
+      },
+      {
+        "id": 5,
+        "class": "Compo",
+        "height": 8,
+        "width": 8,
+        "position": {
+          "column_min": 551,
+          "row_min": 208,
+          "column_max": 559,
+          "row_max": 216
+        },
+        "name": null
+      },
+      {
+        "id": 6,
+        "class": "Compo",
+        "height": 8,
+        "width": 8,
+        "position": {
+          "column_min": 551,
+          "row_min": 220,
+          "column_max": 559,
+          "row_max": 228
+        },
+        "name": null
+      },
+      {
+        "id": 7,
+        "class": "Compo",
+        "height": 8,
+        "width": 8,
+        "position": {
+          "column_min": 551,
+          "row_min": 232,
+          "column_max": 559,
+          "row_max": 240
+        },
+        "name": null
+      },
+      {
+        "id": 8,
+        "class": "Compo",
+        "height": 28,
+        "width": 28,
+        "position": {
+          "column_min": 529,
+          "row_min": 324,
+          "column_max": 557,
+          "row_max": 352
+        },
+        "name": null
+      },
+      {
+        "id": 9,
+        "class": "Compo",
+        "height": 183,
+        "width": 585,
+        "position": {
+          "column_min": 0,
+          "row_min": 536,
+          "column_max": 585,
+          "row_max": 719
+        },
+        "name": "Cards"
+      }
+    ],
+    "texts": [
+      {
+        "id": 10,
+        "class": "Text",
+        "height": 46,
+        "width": 196,
+        "position": {
+          "column_min": 25,
+          "row_min": 207,
+          "column_max": 221,
+          "row_max": 253
+        },
+        "text_content": "Recipe box"
+      },
+      {
+        "id": 11,
+        "class": "Text",
+        "height": 37,
+        "width": 374,
+        "position": {
+          "column_min": -6,
+          "row_min": 328,
+          "column_max": 368,
+          "row_max": 365
+        },
+        "text_content": "assword was updated on your"
+      },
+      {
+        "id": 12,
+        "class": "Text",
+        "height": 36,
+        "width": 334,
+        "position": {
+          "column_min": 2,
+          "row_min": 367,
+          "column_max": 336,
+          "row_max": 403
+        },
+        "text_content": "evice . Please sign in again ."
+      },
+      {
+        "id": 13,
+        "class": "Text",
+        "height": 27,
+        "width": 112,
+        "position": {
+          "column_min": 448,
+          "row_min": 446,
+          "column_max": 560,
+          "row_max": 473
+        },
+        "text_content": "SIGN IN"
+      }
+    ],
+    "img_shape": [720, 720, 3]
+  }
+}
