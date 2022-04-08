@@ -1,15 +1,15 @@
-from Components.Banner import banner_main
-from Components.BottomAppBar import bottomappbar_main
-from Components.BottomNav import bottomNav_main
-from Components.Button import button_main
-from Components.Cards import cards_main
-from Components.Dialogs import dialogs_main
-from Components.FAB import fab_main
-from Components.Lists import lists_main
-from Components.NavDrawer import navdrawer_main
-from Components.Tabs import tabs_main
-from Components.TextFields import textfield_main
-from Components.TopAppBar import topappbar_main
+from .Components.Banner import banner_main
+from .Components.BottomAppBar import bottomappbar_main
+from .Components.BottomNav import bottomNav_main
+from .Components.Button import button_main
+from .Components.Cards import cards_main
+from .Components.Dialogs import dialogs_main
+from .Components.FAB import fab_main
+from .Components.Lists import lists_main
+from .Components.NavDrawer import navdrawer_main
+from .Components.Tabs import tabs_main
+from .Components.TextFields import textfield_main
+from .Components.TopAppBar import topappbar_main
 
 
 def divert(data):

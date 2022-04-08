@@ -12,7 +12,7 @@ from django.core.files.base import ContentFile
 from tempfile import NamedTemporaryFile
 from django.core.files import File
 import cloudinary.uploader
-from KnowledgeBase.divert import divert
+from .KnowledgeBase.divert import divert
 
 # Create your views here.
 
