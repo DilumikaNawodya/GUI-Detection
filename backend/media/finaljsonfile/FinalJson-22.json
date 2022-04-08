@@ -1,0 +1,1 @@
+{"combinedjson": {"compos": [{"id": 0, "class": "Compo", "height": 194, "width": 503, "position": {"column_min": 280, "row_min": 0, "column_max": 783, "row_max": 194}}], "texts": [{"id": 1, "class": "Text", "height": 15, "width": 44, "position": {"column_min": 636, "row_min": 244, "column_max": 680, "row_max": 259}, "text_content": "Music"}], "img_shape": [358, 1064, 3]}}

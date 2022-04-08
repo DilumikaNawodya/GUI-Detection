@@ -56,4 +56,4 @@ def divert(data):
         elif (name == "Appbar: Top"):
             Ids += topappbar_main(data, i, ncomponents)
             break
-    return
+    return Ids

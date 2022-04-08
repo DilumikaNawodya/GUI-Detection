@@ -41,7 +41,7 @@ def navdrawer_main(data, i, ncomponents, screen_size):
                 embeddedtext, textmeta, NavDrawer['width']))
 
     Ids.append(nav_components(bottom_nav))
-    Ids.append(nav_drawer_side(NavDrawer, screen_size))
+    Ids.append(nav_drawer_side(bottom_bar, NavDrawer, screen_size))
 
     return Ids
 
@@ -83,7 +83,7 @@ def text_truncate(embeddedtext, textmeta, draw_width):
 
 
 def shrink_text(embeddedtext):
-    regualr_text_size = embeddedtext[len(embeddedtext)/2]['height']
+    regualr_text_size = embeddedtext[len(embeddedtext)//2]['height']
     for i in range(1, len(embeddedtext)-1):
         if (regualr_text_size == embeddedtext[i]['height']):
             return -1

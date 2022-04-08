@@ -74,7 +74,7 @@ def AddAnnotation(request):
     for compo in data['data']:
         key_val_compo[compo['element']] = compo['component']
 
-    with open(data['name'], 'r+') as f:
+    with open(os.path.join(settings.MEDIA_ROOT, data['name']), 'r+') as f:
         j_data = json.load(f)
 
         for compo in j_data['combinedjson']['compos']:

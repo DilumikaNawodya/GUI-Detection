@@ -10,7 +10,8 @@ from .Element import Element
 
 
 def show_elements(org_img, eles, show=True, win_name='element', wait_key=0, shown_resize=None, line=2):
-    color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Block':(0, 255, 0), 'Text Content':(255, 0, 255)}
+    color_map = {'Text': (0, 0, 255), 'Compo': (0, 255, 0), 'Block': (
+        0, 255, 0), 'Text Content': (255, 0, 255)}
     img = org_img.copy()
     for ele in eles:
         color = color_map[ele.category]
@@ -27,13 +28,14 @@ def show_elements(org_img, eles, show=True, win_name='element', wait_key=0, show
 
 
 def save_elements(elements, img_shape):
-    components = {'combinedjson': {'compos': [], 'texts': [], 'img_shape': img_shape}}
+    components = {'combinedjson': {'compos': [],
+                                   'texts': [], 'screen_size': img_shape}}
     for i, ele in enumerate(elements):
         c = ele.wrap_info()
-        if c['class'] == "Compo":
-            components['combinedjson']['compos'].append(c)
-        elif c['class'] == "Text":
+        if c['class'] == "Text":
             components['combinedjson']['texts'].append(c)
+        else:
+            components['combinedjson']['compos'].append(c)
     # json.dump(components, open(output_file, 'w'), indent=4)
     return components
 
@@ -68,7 +70,8 @@ def merge_text_line_to_paragraph(elements, max_line_gap=5):
         for text_a in texts:
             merged = False
             for text_b in temp_set:
-                inter_area, _, _, _ = text_a.calc_intersection_area(text_b, bias=(0, max_line_gap))
+                inter_area, _, _, _ = text_a.calc_intersection_area(
+                    text_b, bias=(0, max_line_gap))
                 if inter_area > 0:
                     text_b.element_merge(text_a)
                     merged = True
@@ -93,7 +96,8 @@ def refine_elements(compos, texts, intersection_bias=(2, 2), containment_ratio=0
         is_valid = True
         text_area = 0
         for text in texts:
-            inter, iou, ioa, iob = compo.calc_intersection_area(text, bias=intersection_bias)
+            inter, iou, ioa, iob = compo.calc_intersection_area(
+                text, bias=intersection_bias)
             if inter > 0:
                 # the non-text is contained in the text compo
                 if ioa >= containment_ratio:
@@ -111,10 +115,10 @@ def refine_elements(compos, texts, intersection_bias=(2, 2), containment_ratio=0
         i['parent'].children.append(i['children'])
         if i['parent'] not in elements:
             elements.append(i['parent'])
-    
+
     for text in texts:
         elements.append(text)
-        
+
     return elements, contained_texts
 
 
@@ -157,14 +161,18 @@ def compos_clip_and_fill(clip_root, org, compos):
         '''
         up = row_min - pad if row_min - pad >= 0 else 0
         left = col_min - pad if col_min - pad >= 0 else 0
-        bottom = row_max + pad if row_max + pad < org.shape[0] - 1 else org.shape[0] - 1
-        right = col_max + pad if col_max + pad < org.shape[1] - 1 else org.shape[1] - 1
+        bottom = row_max + pad if row_max + \
+            pad < org.shape[0] - 1 else org.shape[0] - 1
+        right = col_max + pad if col_max + \
+            pad < org.shape[1] - 1 else org.shape[1] - 1
         most = []
         for i in range(3):
             val = np.concatenate((org[up:row_min - offset, left:right, i].flatten(),
-                            org[row_max + offset:bottom, left:right, i].flatten(),
-                            org[up:bottom, left:col_min - offset, i].flatten(),
-                            org[up:bottom, col_max + offset:right, i].flatten()))
+                                  org[row_max + offset:bottom,
+                                      left:right, i].flatten(),
+                                  org[up:bottom, left:col_min -
+                                      offset, i].flatten(),
+                                  org[up:bottom, col_max + offset:right, i].flatten()))
             most.append(int(np.argmax(np.bincount(val))))
         return most
 
@@ -187,10 +195,12 @@ def compos_clip_and_fill(clip_root, org, compos):
             cls_dirs.append(cls)
 
         position = compo['position']
-        col_min, row_min, col_max, row_max = position['column_min'], position['row_min'], position['column_max'], position['row_max']
+        col_min, row_min, col_max, row_max = position['column_min'], position[
+            'row_min'], position['column_max'], position['row_max']
         cv2.imwrite(c_path, org[row_min:row_max, col_min:col_max])
         # Fill up the background area
-        cv2.rectangle(bkg, (col_min, row_min), (col_max, row_max), most_pix_around(), -1)
+        cv2.rectangle(bkg, (col_min, row_min),
+                      (col_max, row_max), most_pix_around(), -1)
     cv2.imwrite(pjoin(clip_root, 'bkg.png'), bkg)
 
 
@@ -200,12 +210,14 @@ def merge(img_path, compo_json, text_json, is_paragraph=False, is_remove_bar=Tru
     ele_id = 0
     compos = []
     for compo in compo_json['compos']:
-        element = Element(ele_id, (compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']), compo['class'])
+        element = Element(ele_id, (compo['column_min'], compo['row_min'],
+                          compo['column_max'], compo['row_max']), compo['class'])
         compos.append(element)
         ele_id += 1
     texts = []
     for text in text_json['texts']:
-        element = Element(ele_id, (text['column_min'], text['row_min'], text['column_max'], text['row_max']), 'Text', text_content=text['content'])
+        element = Element(ele_id, (text['column_min'], text['row_min'],
+                          text['column_max'], text['row_max']), 'Text', text_content=text['content'])
         texts.append(element)
         ele_id += 1
     if compo_json['img_shape'] != text_json['img_shape']:
@@ -215,23 +227,28 @@ def merge(img_path, compo_json, text_json, is_paragraph=False, is_remove_bar=Tru
 
     # check the original detected elements
     img = cv2.imread(img_path)
-    img_resize = cv2.resize(img, (compo_json['img_shape'][1], compo_json['img_shape'][0]))
-    show_elements(img_resize, texts + compos, show=False, win_name='all elements before merging', wait_key=wait_key)
+    img_resize = cv2.resize(
+        img, (compo_json['img_shape'][1], compo_json['img_shape'][0]))
+    show_elements(img_resize, texts + compos, show=False,
+                  win_name='all elements before merging', wait_key=wait_key)
 
     # refine elements
     texts = refine_texts(texts, compo_json['img_shape'])
     elements, contained_texts = refine_elements(compos, texts)
     if is_remove_bar:
-        elements = remove_top_bar(elements, img_height=compo_json['img_shape'][0])
-        elements = remove_bottom_bar(elements, img_height=compo_json['img_shape'][0])
+        elements = remove_top_bar(
+            elements, img_height=compo_json['img_shape'][0])
+        elements = remove_bottom_bar(
+            elements, img_height=compo_json['img_shape'][0])
     if is_paragraph:
         elements = merge_text_line_to_paragraph(elements, max_line_gap=7)
     reassign_ids(elements)
     # check_containment(elements)
-    
-    board = show_elements(img_resize, elements, show=show, win_name='elements after merging', wait_key=wait_key)
+
+    board = show_elements(img_resize, elements, show=show,
+                          win_name='elements after merging', wait_key=wait_key)
     board = cv2.cvtColor(board, cv2.COLOR_BGR2RGB)
 
     components = save_elements(elements, img_resize.shape)
-    
+
     return board, components

@@ -2,6 +2,7 @@ from os.path import join as pjoin
 import cv2
 import os
 import numpy as np
+from django.conf import settings
 
 
 def resize_height_by_longest_edge(img_path, resize_length=800):
@@ -14,6 +15,8 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
 
 
 def CheckComponent(input_path_img):
+    print(input_path_img)
+    input_path_img = os.path.join(settings.MEDIA_ROOT, input_path_img)
 
     '''
         ele:min-grad: gradient threshold to produce binary map         
@@ -30,15 +33,14 @@ def CheckComponent(input_path_img):
         mobile: {'min-grad':4, 'ffl-block':5, 'min-ele-area':50, 'max-word-inline-gap':6, 'max-line-gap':1}
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
-    
-    
+
     key_params = {
-        'min-grad':10, 
-        'ffl-block':5, 
-        'min-ele-area':50,
-        'merge-contained-ele':True, 
-        'merge-line-to-paragraph':False, 
-        'remove-bar':True
+        'min-grad': 10,
+        'ffl-block': 5,
+        'min-ele-area': 100,
+        'merge-contained-ele': True,
+        'merge-line-to-paragraph': False,
+        'remove-bar': False
     }
 
     # set input image path
@@ -46,7 +48,8 @@ def CheckComponent(input_path_img):
     results = {}
     finalresults = {}
 
-    resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
+    resized_height = resize_height_by_longest_edge(
+        input_path_img, resize_length=800)
 
     is_ip = True
     is_ocr = True
@@ -55,40 +58,40 @@ def CheckComponent(input_path_img):
     if is_ocr:
         from .detect_text import text_detection as text
         op = text.text_detection(
-            input_path_img, 
-            output_root, 
+            input_path_img,
+            output_root,
             show=False
         )
-        
+
         results['textjson'] = op
 
     if is_ip:
         from .lib_ip import ip_region_proposal as ip
         op = ip.compo_detection(
-            input_path_img, 
-            output_root, 
-            key_params, 
+            input_path_img,
+            output_root,
+            key_params,
             show=False
         )
-        
+
         results['imagejson'] = op[0]
         results['image'] = op[1]
-        
+
     if is_merge:
         from .detect_merge import merge as merge
         compo_json = results['imagejson']
         ocr_json = results['textjson']
-        
+
         op = merge.merge(
-            input_path_img, 
-            compo_json, 
-            ocr_json, 
-            is_remove_bar=key_params['remove-bar'], 
-            is_paragraph=key_params['merge-line-to-paragraph'], 
+            input_path_img,
+            compo_json,
+            ocr_json,
+            is_remove_bar=key_params['remove-bar'],
+            is_paragraph=key_params['merge-line-to-paragraph'],
             show=False
         )
 
         finalresults['combinedimage'] = op[0]
         finalresults['combinedjson'] = op[1]
-    
+
     return finalresults
