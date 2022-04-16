@@ -31,8 +31,6 @@ def read_img(path, resize_height=None, kernel_size=None):
 
 
 def gray_to_gradient(img):
-    if len(img.shape) == 3:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_f = np.copy(img)
     img_f = img_f.astype("float")
 

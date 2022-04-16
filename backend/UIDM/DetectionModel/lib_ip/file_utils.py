@@ -25,7 +25,7 @@ def save_corners(file_path, corners, compo_name, clear=True):
     df.to_csv(file_path)
 
 
-def save_corners_json(compos):
+def save_corners_json(compos, segments):
     img_shape = compos[0].image_shape
     output = {'img_shape': img_shape, 'compos': []}
 
@@ -35,6 +35,13 @@ def save_corners_json(compos):
         c['width'] = compo.width
         c['height'] = compo.height
         output['compos'].append(c)
+
+    temp_id = compo.id + 1
+    for i in segments:
+        i['id'] = temp_id
+        temp_id += 1
+        
+        output['compos'].append(i)
 
     return output
 

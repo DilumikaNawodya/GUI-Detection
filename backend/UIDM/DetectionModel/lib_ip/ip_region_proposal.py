@@ -40,14 +40,16 @@ def compo_detection(input_img_path, output_root, uied_params, resize_by_height=N
     binary = pre.binarization(org, grad_min=int(uied_params['min-grad']))
 
     # *** Step 2 *** element detection
-    det.rm_line(binary, show=show, wait_key=wai_key)
     uicompos = det.component_detection(
         binary, min_obj_area=int(uied_params['min-ele-area']))
 
     # *** Step 3 *** results refinement
+    segments = det.block_detection(uicompos, img_shape=binary.shape)
     uicompos = det.compo_filter(uicompos, min_area=int(
         uied_params['min-ele-area']), img_shape=binary.shape)
     uicompos = det.merge_intersected_compos(uicompos)
+    
+    
     # det.compo_block_recognition(binary, uicompos)
     if uied_params['merge-contained-ele']:
         uicompos = det.rm_contained_compos_not_in_block(uicompos)
@@ -62,6 +64,6 @@ def compo_detection(input_img_path, output_root, uied_params, resize_by_height=N
         org, uicompos, show=show, name='merged compo', wait_key=wai_key)
 
     Compo.compos_update(uicompos, org.shape)
-    detectedjson = file.save_corners_json(uicompos)
+    detectedjson = file.save_corners_json(uicompos, segments)
 
     return([detectedjson, detectedimage])

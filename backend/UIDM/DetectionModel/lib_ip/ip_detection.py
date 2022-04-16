@@ -403,6 +403,51 @@ def compo_block_recognition(binary, compos, block_side_length=0.15):
                 compo.category = 'Block'
 
 
+def block_detection(compos, img_shape, margin=10):
+    height = img_shape[0]
+    width = img_shape[1]
+    
+    segments = []
+    
+    lines = [[(0, 0), (width, 0)], [(0, height), (width, height)]]
+    
+    for compo in compos:
+        
+        compo_bbox = compo.bbox
+        col_min, row_min, col_max, row_max = compo_bbox.put_bbox()
+        
+        cod_1 = [col_min, row_min]
+        cod_2 = [col_max, row_min]
+        cod_3 = [col_min, row_max]
+        cod_4 = [col_max, row_max]
+        
+        i = [cod_1, cod_2, cod_3, cod_4]
+        
+        if i[0] == i[2] and i[1] == i[3]:
+            lines.append([(i[0][0], i[0][1]), (i[1][0], i[1][1])])
+        elif 0 <= i[0][0] < margin and (width-margin) <= i[1][0] < width:
+            lines.append([(i[0][0], i[0][1]), (i[1][0], i[1][1])])
+            lines.append([(i[2][0], i[2][1]), (i[3][0], i[3][1])])
+    
+    lines = sorted(lines)
+
+    for i in range(len(lines)-1):
+        c = {
+            'id': None, 
+            'class': "Block",
+            'column_min': lines[i][0][0], 
+            'row_min': lines[i][0][1],
+            'column_max': lines[i+1][1][0],
+            'row_max': lines[i+1][1][1],
+            'width': lines[i+1][1][0] - lines[i][0][0],
+            'height': lines[i+1][1][1] - lines[i][0][1]
+        }
+        
+        segments.append(c)
+    return segments
+
+
+
 # take the binary image as input
 # calculate the connected regions -> get the bounding boundaries of them -> check if those regions are rectangles
 # return all boundaries and boundaries of rectangles
@@ -446,17 +491,17 @@ def component_detection(binary, min_obj_area,
 
                 # filter out some compos
                 component = Component(region, binary.shape)
-                # calculate the boundary of the connected area
-                # ignore small area
-                if component.width <= 3 or component.height <= 3:
-                    continue
-                # check if it is line by checking the length of edges
-                # if component.compo_is_line(line_thickness):
+                # # calculate the boundary of the connected area
+                # # ignore small area
+                # if component.width <= 3 or component.height <= 3:
                 #     continue
+                # # check if it is line by checking the length of edges
+                # # if component.compo_is_line(line_thickness):
+                # #     continue
 
-                if test:
-                    print('Area:%d' % (len(region)))
-                    draw.draw_boundary([component], binary.shape, show=True)
+                # if test:
+                #     print('Area:%d' % (len(region)))
+                #     draw.draw_boundary([component], binary.shape, show=True)
 
                 compos_all.append(component)
 

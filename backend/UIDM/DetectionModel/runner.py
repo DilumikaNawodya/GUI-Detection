@@ -35,7 +35,7 @@ def CheckComponent(input_path_img):
     '''
 
     key_params = {
-        'min-grad': 10,
+        'min-grad': 5,
         'ffl-block': 5,
         'min-ele-area': 100,
         'merge-contained-ele': True,
