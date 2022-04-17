@@ -75,7 +75,6 @@ import Top_Appbar_Title from "../../Assests/Top_Appbar_Title.png";
 import Two_Contained_Buttons from "../../Assests/Two_Contained_Buttons.png";
 import Two_Icon_One_Button from "../../Assests/Two_Icon_One_Button.png";
 import Tabs_Text_Wrap from "../../Assests/Tabs_Text_Wrap.png";
-import FAB_Color from "../../Assests/FAB_Color.png";
 import Element_Front_FAB from "../../Assests/Element_Front_FAB.png";
 import FAB_Top_Appbar from "../../Assests/FAB_Top_Appbar.png";
 import FAB_Component_Edge from "../../Assests/FAB_Component_Edge.png";
@@ -103,6 +102,7 @@ import Nav_Draw_Height_1 from "../../Assests/Nav_Draw_Height_1.png";
 import Nav_Draw_Height_0 from "../../Assests/Nav_Draw_Height_0.png";
 import Text_Regular_FAB from "../../Assests/Text_Regular_FAB.png";
 import List_Visuals_Center from "../../Assests/List_Visuals_Center.png";
+import Multiple_FAB from "../../Assests/Multiple_FAB.png";
 
 export const data = [
   {
@@ -730,15 +730,15 @@ export const data = [
     id: 72,
     status: true,
     title: "Multiple Floating Action Buttons",
-    path: ["Buttons: floating action button", "Anatomy", "Permission"],
-    content: "FAB containers adopt a color from an app's palette",
-    notok_image: FAB_Color,
+    path: ["Floating Action Button", "Anatomy", "Permission"],
+    content: "Don't display multiple FABs on a single screen.",
+    notok_image: Multiple_FAB,
   },
   {
     id: 73,
     status: true,
     title: "Elements in front of Floating Action Button",
-    path: ["Buttons: floating action button", "Anatomy", "Error"],
+    path: ["Floating Action Button", "Anatomy", "Error"],
     content: "Don't layer badges or other elements in front of a FAB",
     notok_image: Element_Front_FAB,
   },
@@ -746,7 +746,7 @@ export const data = [
     id: 74,
     status: true,
     title: "Text in a Regular FAB",
-    path: ["Buttons: floating action button", "Anatomy", "Error"],
+    path: ["Floating Action Button", "Anatomy", "Error"],
     content: "Don't place text in a regular FAB",
     notok_image: Text_Regular_FAB,
   },
@@ -754,7 +754,7 @@ export const data = [
     id: 75,
     status: true,
     title: "FAB with a Top Appbar",
-    path: ["Buttons: floating action button", "Placement", "Permission"],
+    path: ["Floating Action Button", "Placement", "Permission"],
     content: "A floating action button (FAB) can attach to a top app bar",
     ok_image: FAB_Top_Appbar,
   },
@@ -762,7 +762,7 @@ export const data = [
     id: 76,
     status: true,
     title: "FAB at the edge of the component",
-    path: ["Buttons: floating action button", "Placement", "Permission"],
+    path: ["Floating Action Button", "Placement", "Permission"],
     content: "A FAB can be attached to the edge of a component",
     ok_image: FAB_Component_Edge,
   },
@@ -770,7 +770,7 @@ export const data = [
     id: 77,
     status: true,
     title: "FAB with Cards",
-    path: ["Buttons: floating action button", "Placement", "Error"],
+    path: ["Floating Action Button", "Placement", "Error"],
     content:
       "Individual components, such as cards, cannot each have their own FAB",
     notok_image: FAB_Cards,
@@ -779,7 +779,7 @@ export const data = [
     id: 78,
     status: true,
     title: "FAB Minimum Action Menu Options",
-    path: ["Buttons: floating action button", "Usage", "Error"],
+    path: ["Floating Action Button", "Usage", "Error"],
     content: "Don't use an action menu with fewer than three options",
     notok_image: FAB_Min_Options,
   },
@@ -787,7 +787,7 @@ export const data = [
     id: 79,
     status: true,
     title: "FAB Maximum Action Menu Options",
-    path: ["Buttons: floating action button", "Usage", "Error"],
+    path: ["Floating Action Button", "Usage", "Error"],
     content:
       "An action menu shouldn't include more than six options, as action menus don't support scrolling",
     ok_image: app_bar_actions_1,
@@ -797,7 +797,7 @@ export const data = [
     id: 80,
     status: true,
     title: "Extended FAB without an Icon",
-    path: ["Buttons: floating action button", "Anatomy", "Permission"],
+    path: ["Floating Action Button", "Anatomy", "Permission"],
     content: "Unlike standard FABs, extended FABs don't require an icon",
     ok_image: Extended_FAB_Icon,
   },
@@ -805,7 +805,7 @@ export const data = [
     id: 81,
     status: true,
     title: "Extended FAB Only with Icon",
-    path: ["Buttons: floating action button", "Anatomy", "Error"],
+    path: ["Floating Action Button", "Anatomy", "Error"],
     content: "An extended FAB can't have an icon without a text label",
     notok_image: ExFAB_Only_Icon,
   },
@@ -813,7 +813,7 @@ export const data = [
     id: 82,
     status: true,
     title: "Extended FAB Truncate Text",
-    path: ["Buttons: floating action button", "Anatomy", "Caution"],
+    path: ["Floating Action Button", "Anatomy", "Caution"],
     content: "Only truncate text if shorter text isn't an option",
     notok_image: ExFAB_Truncate,
   },
@@ -821,7 +821,7 @@ export const data = [
     id: 83,
     status: true,
     title: "Extended FAB Text Wrap",
-    path: ["Buttons: floating action button", "Anatomy", "Error"],
+    path: ["Floating Action Button", "Anatomy", "Error"],
     content: "Avoid wrapping text",
     notok_image: ExFAB_Text_Wrap,
   },
@@ -829,7 +829,7 @@ export const data = [
     id: 84,
     status: true,
     title: "Extended FAB with Bottom Appbar",
-    path: ["Buttons: floating action button", "Anatomy", "Caution"],
+    path: ["Floating Action Button", "Anatomy", "Caution"],
     content:
       "Avoid using an extended FAB above a bottom app bar, as the combination takes up a lot of screen space. If they are paired, the extended FAB should collapse on scroll",
     notok_image: ExFAB_Bottom_Appbar,

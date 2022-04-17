@@ -1,25 +1,24 @@
 import { Container } from "@material-ui/core";
 import React from "react";
 import ReportContainer from "../../Components/Report/reportcontainer";
-import { data } from "./ReportData";
+import { data } from "./GuidelineData";
 
+function ReportPage() {
+  const violatedIds = new Set(JSON.parse(localStorage.getItem("violatedIds")));
 
-function ReportPage(){
+  const datas = data.filter((a) => violatedIds.has(a.id));
 
-    const datas = data
-
-    return(
-        <Container>
-
-            <center><h1> Report Page </h1></center>
-            <hr/>
-            {datas.map((item, index)=>{
-                return(
-                    <ReportContainer data={item}/>
-                )
-            })}
-        </Container>
-    )
+  return (
+    <Container>
+      <center>
+        <h1> Report Page </h1>
+      </center>
+      <hr />
+      {datas.map((item, index) => {
+        return <ReportContainer data={item} />;
+      })}
+    </Container>
+  );
 }
 
-export default ReportPage
+export default ReportPage;

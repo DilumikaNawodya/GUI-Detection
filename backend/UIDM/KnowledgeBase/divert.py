@@ -50,7 +50,7 @@ def divert(data):
         elif (name == "Tabs"):
             Ids += tabs_main(data, i, ncomponents)
             break
-        elif (name == "Text Field"):
+        elif (name == "Text Fields"):
             Ids += textfield_main(data, i, ncomponents)
             break
         elif (name == "Appbar: Top"):
