@@ -14,9 +14,10 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
         return int(resize_length * (height / width))
 
 
-def CheckComponent(input_path_img):
-    print(input_path_img)
+def CheckComponent(input_path_img, input_path_json=None):
+
     input_path_img = os.path.join(settings.MEDIA_ROOT, input_path_img)
+    input_path_json = os.path.join(settings.MEDIA_ROOT, input_path_json)
 
     '''
         ele:min-grad: gradient threshold to produce binary map         
@@ -49,7 +50,8 @@ def CheckComponent(input_path_img):
     finalresults = {}
 
     resized_height = resize_height_by_longest_edge(
-        input_path_img, resize_length=800)
+        input_path_img, resize_length=800
+    )
 
     is_ip = True
     is_ocr = True
@@ -62,6 +64,12 @@ def CheckComponent(input_path_img):
             output_root,
             show=False
         )
+
+        if input_path_json:
+            op = text.meta_json_correction(
+                op,
+                input_path_json
+            )
 
         results['textjson'] = op
 

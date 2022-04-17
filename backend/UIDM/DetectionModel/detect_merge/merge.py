@@ -91,13 +91,13 @@ def refine_elements(compos, texts, intersection_bias=(2, 2), containment_ratio=0
     '''
     elements = []
     contained_texts = []
+    contained_compo = []
 
     for compo in compos:
         is_valid = True
         text_area = 0
         for text in texts:
-            inter, iou, ioa, iob = compo.calc_intersection_area(
-                text, bias=intersection_bias)
+            inter, iou, ioa, iob = compo.calc_intersection_area(text, bias=intersection_bias)
             if inter > 0:
                 # the non-text is contained in the text compo
                 if ioa >= containment_ratio:
@@ -106,21 +106,48 @@ def refine_elements(compos, texts, intersection_bias=(2, 2), containment_ratio=0
                 text_area += inter
                 # the text is contained in the non-text compo
                 if iob >= containment_ratio and compo.category != 'Block':
-                    contained_texts.append({"parent": compo, "children": text})
+                    contained_texts.append(
+                        {
+                            "parent": compo, 
+                            "children": text
+                        }
+                    )
         if compo.area > 0:
             if is_valid and text_area / compo.area < containment_ratio:
                 elements.append(compo)
+                
+    for compo in compos:
+        is_valid = True
+        comp_area = 0
+        for cop in elements:
+            inter, iou, ioa, iob = compo.calc_intersection_area(cop, bias=intersection_bias)
+            if inter > 0:
+                if ioa >= containment_ratio:
+                    is_valid = False
+                    break
+                comp_area += inter
+                if iob >= containment_ratio:
+                    contained_compo.append(
+                        {
+                            "parent": compo, 
+                            "children": cop
+                        }
+                    )
 
-    # elements += texts
     for i in contained_texts:
-        i['parent'].children.append(i['children'])
+        i['parent'].text_children.append(i['children'])
         if i['parent'] not in elements:
             elements.append(i['parent'])
-
+            
+    for i in contained_compo:
+        i['parent'].compo_children.append(i['children'])
+        if i['parent'] not in elements:
+            elements.append(i['parent'])
+    
     for text in texts:
         elements.append(text)
 
-    return elements, contained_texts
+    return elements
 
 
 def check_containment(elements):
@@ -211,14 +238,16 @@ def merge(img_path, compo_json, text_json, is_paragraph=False, is_remove_bar=Tru
     ele_id = 0
     compos = []
     for compo in compo_json['compos']:
-        element = Element(ele_id, (compo['column_min'], compo['row_min'],
-                          compo['column_max'], compo['row_max']), compo['class'])
+        element = Element(ele_id, (compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']), compo['class'])
         compos.append(element)
         ele_id += 1
     texts = []
+
     for text in text_json['texts']:
-        element = Element(ele_id, (text['column_min'], text['row_min'],
-                          text['column_max'], text['row_max']), 'Text', text_content=text['content'])
+        if 'text_meta' in text:
+            element = Element(ele_id, (text['column_min'], text['row_min'], text['column_max'], text['row_max']), 'Text', text_content=text['content'], text_meta=text['text_meta'])
+        else:
+            element = Element(ele_id, (text['column_min'], text['row_min'], text['column_max'], text['row_max']), 'Text', text_content=text['content'])
         texts.append(element)
         ele_id += 1
     if compo_json['img_shape'] != text_json['img_shape']:
@@ -228,28 +257,23 @@ def merge(img_path, compo_json, text_json, is_paragraph=False, is_remove_bar=Tru
 
     # check the original detected elements
     img = cv2.imread(img_path)
-    img_resize = cv2.resize(
-        img, (compo_json['img_shape'][1], compo_json['img_shape'][0]))
-    show_elements(img_resize, texts + compos, show=False,
-                  win_name='all elements before merging', wait_key=wait_key)
+    img_resize = cv2.resize(img, (compo_json['img_shape'][1], compo_json['img_shape'][0]))
+    # show_elements(img_resize, texts + compos, show=False, win_name='all elements before merging', wait_key=wait_key)
 
     # refine elements
     texts = refine_texts(texts, compo_json['img_shape'])
-    elements, contained_texts = refine_elements(compos, texts)
+    elements = refine_elements(compos, texts)
     if is_remove_bar:
-        elements = remove_top_bar(
-            elements, img_height=compo_json['img_shape'][0])
-        elements = remove_bottom_bar(
-            elements, img_height=compo_json['img_shape'][0])
+        elements = remove_top_bar(elements, img_height=compo_json['img_shape'][0])
+        elements = remove_bottom_bar(elements, img_height=compo_json['img_shape'][0])
     if is_paragraph:
         elements = merge_text_line_to_paragraph(elements, max_line_gap=7)
     reassign_ids(elements)
     # check_containment(elements)
-
-    board = show_elements(img_resize, elements, show=show,
-                          win_name='elements after merging', wait_key=wait_key)
+    
+    board = show_elements(img_resize, elements, show=show, win_name='elements after merging', wait_key=wait_key)
     board = cv2.cvtColor(board, cv2.COLOR_BGR2RGB)
 
     components = save_elements(elements, img_resize.shape)
-
+    
     return board, components

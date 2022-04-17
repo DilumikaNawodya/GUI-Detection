@@ -2,6 +2,7 @@ from .ocr import *
 from .Text import Text
 import cv2
 import json
+import numpy as np
 from os.path import join as pjoin
 
 
@@ -127,3 +128,67 @@ def text_detection(input_file, output_file, show=False):
     texts = save_detection_json(texts, img.shape)
 
     return(texts)
+
+def area_calc(col_min, row_min, col_max, row_max):
+    width = col_max - col_min
+    height = row_max - row_min
+    area = width * height
+    
+    return area
+
+
+def calc_intersection_area(element_a, element_b, bias=(0, 0)):
+    a = element_a
+    b = element_b
+    
+    element_a_area = area_calc(a[0], a[1], a[2], a[3])
+    element_b_area = area_calc(b[0], b[1], b[2], b[3])
+    
+    col_min_s = max(a[0], b[0]) - bias[0]
+    row_min_s = max(a[1], b[1]) - bias[1]
+    col_max_s = min(a[2], b[2])
+    row_max_s = min(a[3], b[3])
+    w = np.maximum(0, col_max_s - col_min_s)
+    h = np.maximum(0, row_max_s - row_min_s)
+    inter = w * h
+
+    iou = inter / (element_a_area + element_b_area - inter)
+    ioa = inter / element_a_area
+    iob = inter / element_b_area
+
+    return inter, iou, ioa, iob
+
+glob_obj = []
+def iterate(obj):
+    
+    for i in obj:
+        if 'Children' in i:
+            iterate(i['Children'])
+        else:
+            glob_obj.append({
+                "Text": i['Text'],
+                "Bounds": i['Bounds']
+            })
+    return 0
+
+def meta_json_correction(op, input_file):
+    
+    with open(input_file, 'r') as f:
+        j_data = json.load(f)
+        
+        iterate(j_data)
+        
+        for text in op['texts']:
+            text['text_meta'] = []
+            element_a = [text['column_min'], text['row_min'], text['column_max'], text['row_max']]
+            for meta_text in glob_obj:
+                element_b = meta_text['Bounds']
+                inter, iou, ioa, iob = calc_intersection_area(element_a, element_b)
+                
+                
+                if inter >= 0:
+           
+                    if iob >= 1:
+                        text['text_meta'].append(meta_text['Text'])
+
+        return op

@@ -32,32 +32,45 @@ def checkCompos(jsonFile):
 @csrf_exempt
 def CheckImage(request):
 
-    instance = ImageJsonModel.objects.create(
-        image=request.FILES['image'], metajson=request.FILES['metajson'])
-    instance.save()
-
-    # Check image
-    results = CheckComponent(
-        str(ImageJsonModel.objects.get(id=instance.id).image))
+    if 'metajson' in request.FILES:
+        
+        instance = ImageJsonModel.objects.create(image = request.FILES['image'], metajson = request.FILES['metajson'])
+        instance.save()
+        
+        # Check image
+        results = CheckComponent(
+            str(ImageJsonModel.objects.get(id=instance.id).image), 
+            str(ImageJsonModel.objects.get(id=instance.id).metajson)
+        )
+    
+    else:
+    
+        instance = ImageJsonModel.objects.create(image = request.FILES['image'])
+        instance.save()
+        
+        # Check image
+        results = CheckComponent(
+            str(ImageJsonModel.objects.get(id=instance.id).image)
+        )
+    
+    
     img = Image.fromarray(results['combinedimage'], 'RGB')
-
+    
     # Save detected image
-    pillow_image = pill(img)
-    image_file = InMemoryUploadedFile(
-        pillow_image, None, 'foo.jpg', 'image/jpeg', pillow_image.tell, None)
+    pillow_image  = pill(img)
+    image_file = InMemoryUploadedFile(pillow_image, None, 'foo.jpg', 'image/jpeg', pillow_image.tell, None)
     obj = ImageJsonModel.objects.filter(id=instance.id)[0]
     obj.detectedimage = image_file
     obj.save()
-
+    
     # Json file
     obj = ImageJsonModel.objects.filter(id=instance.id)[0]
-    obj.finaljson.save("json", ContentFile(
-        str(json.dumps(results['combinedjson']))))
-
+    obj.finaljson.save("json", ContentFile(str(json.dumps(results['combinedjson']))))
+    
     # Upload to cloudinary
     upload_data = cloudinary.uploader.upload(obj.detectedimage)
     num_of_compos = checkCompos(results['combinedjson'])
-
+    
     return JsonResponse({"combinedimage": upload_data, "no_of_compos": num_of_compos, "json_name": obj.finaljson.name}, status=200)
 
 
@@ -82,6 +95,14 @@ def AddAnnotation(request):
                 compo['name'] = key_val_compo[compo['id']]
             else:
                 compo['name'] = None
+                
+        for compo in j_data['combinedjson']['compos']:
+            if 'embeddedcompos' in compo:
+                for emb_compo in compo['embeddedcompos']:
+                    if emb_compo['id'] in accpeted_compo_list:
+                        emb_compo['name'] = key_val_compo[compo['id']]
+                    else:
+                        emb_compo['name'] = None
 
         f.seek(0)
         json.dump(j_data, f)
