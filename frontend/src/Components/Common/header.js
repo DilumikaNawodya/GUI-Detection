@@ -1,8 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import { AppBar } from "@material-ui/core";
 import { Toolbar } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -35,6 +37,22 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Createaro
           </Typography>
+          <Button
+            color="inherit"
+            onClick={() => {
+              history.push("/guideline-page");
+            }}
+          >
+            Guidelines
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            Detect
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

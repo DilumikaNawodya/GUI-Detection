@@ -107,8 +107,9 @@ def refine_elements(compos, texts, intersection_bias=(2, 2), containment_ratio=0
                 # the text is contained in the non-text compo
                 if iob >= containment_ratio and compo.category != 'Block':
                     contained_texts.append({"parent": compo, "children": text})
-        if is_valid and text_area / compo.area < containment_ratio:
-            elements.append(compo)
+        if compo.area > 0:
+            if is_valid and text_area / compo.area < containment_ratio:
+                elements.append(compo)
 
     # elements += texts
     for i in contained_texts:

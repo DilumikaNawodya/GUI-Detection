@@ -94,6 +94,7 @@ export default function ImagePage() {
   const addedListSubmit = () => {
     GetComponentItem(finalList, imagedata.json_name)
       .then(function (response) {
+        localStorage.setItem("violatedIds", JSON.stringify(response.data));
         console.log(response.data);
         history.push("/report-page");
       })
@@ -183,6 +184,10 @@ export default function ImagePage() {
                     <MenuItem value={"Tabs"}>Tabs</MenuItem>
                     <MenuItem value={"Dialogs"}>Dialogs</MenuItem>
                     <MenuItem value={"Banner"}>Banner</MenuItem>
+                    <MenuItem value={"Banner"}>Icon</MenuItem>
+                    <MenuItem value={"Banner"}>Divider</MenuItem>
+                    <MenuItem value={"Banner"}>Image</MenuItem>
+                    <MenuItem value={"Banner"}>Keyboard</MenuItem>
                   </Select>
                 </FormControl>
 
