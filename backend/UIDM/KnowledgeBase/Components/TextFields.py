@@ -3,15 +3,14 @@ def textfield_main(data, i, ncomponents):
     TextField = data['combinedjson']['compos'][i]
     embeddedcompos = TextField.get('embeddedcompos')
     embeddedtext = TextField.get('embeddedtext')
-    textmeta = TextField.get('textmeta')
 
     # Call Functions
-    Ids.append(Text_Field_Labels(embeddedtext))
+
     if (embeddedtext):
         Ids.append(Text_Field_Label_MultiLine(embeddedtext))
-        if (textmeta):
-            Ids.append(Text_Field_Label_Truncate(embeddedtext,textmeta))
-    return
+        Ids.append(Text_Field_Label_Truncate(embeddedtext))
+        Ids.append(Text_Field_Labels(embeddedtext))
+    return Ids
 
 
 def Text_Field_Labels(embeddedtext):
@@ -19,12 +18,14 @@ def Text_Field_Labels(embeddedtext):
         return -1
     return 28
 
-def Text_Field_Label_Truncate(embeddedtext,textmeta):
-    if (embeddedtext[0]['text_content']==textmeta['text_content']):
+
+def Text_Field_Label_Truncate(embeddedtext):
+    if (embeddedtext[0]['text_content'] == embeddedtext[0]['text_meta']):
         return -1
     return 29
 
+
 def Text_Field_Label_MultiLine(embeddedtext):
-    if len(embeddedtext)>1:
+    if len(embeddedtext) > 1:
         return 30
     return -1

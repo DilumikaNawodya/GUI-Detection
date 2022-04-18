@@ -17,7 +17,8 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
 def CheckComponent(input_path_img, input_path_json=None):
 
     input_path_img = os.path.join(settings.MEDIA_ROOT, input_path_img)
-    input_path_json = os.path.join(settings.MEDIA_ROOT, input_path_json)
+    if input_path_json is not None:
+        input_path_json = os.path.join(settings.MEDIA_ROOT, input_path_json)
 
     '''
         ele:min-grad: gradient threshold to produce binary map         

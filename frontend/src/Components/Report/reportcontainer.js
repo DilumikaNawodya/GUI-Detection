@@ -45,19 +45,28 @@ function ReportContainer({ data }) {
                 size="small"
                 label={data.path[2]}
                 style={{
-                  color: data.status ? "green" : "red",
+                  color:
+                    data.path[2] === "Permission"
+                      ? "green"
+                      : data.path[2] === "Caution"
+                      ? "Orange"
+                      : "red",
                   marginBlock: "auto",
                   marginRight: "10px",
                 }}
               />
               <p>{data.content}</p>
             </Grid>
-            <Grid item lg={4}>
-              <img src={data.ok_image} height="400px" alt="Correct" /> <br />
-            </Grid>
-            <Grid item lg={4}>
-              <img src={data.notok_image} height="400px" alt="Incorrect" />
-            </Grid>
+            {data.ok_image ? (
+              <Grid item lg={4}>
+                <img src={data.ok_image} height="400px" alt="Correct" /> <br />
+              </Grid>
+            ) : null}
+            {data.notok_image ? (
+              <Grid item lg={4}>
+                <img src={data.notok_image} height="400px" alt="Incorrect" />
+              </Grid>
+            ) : null}
           </Grid>
         </CardContent>
       </Card>

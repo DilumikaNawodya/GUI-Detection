@@ -10,7 +10,7 @@ def banner_main(data, i, ncomponents):
         for j in range(len(embeddedcompos)):
             if (embeddedcompos[j]['name'] == "Button"):
                 button = True
-                btn_count += [i]
+                btn_count += [j]
                 btn_type.append(embeddedcompos[j]['type'])
         Ids.append(banner_button(button, btn_count, btn_type))
         Ids.append(mismatch_btn_banner(banner, btn_type))
@@ -64,7 +64,7 @@ def banner_btn_order(btn_count, embeddedcompos):
 
 def icon_w_text(embeddedcompos, embeddedtext):
     icon = False
-    for i in len(embeddedcompos):
+    for i in range(len(embeddedcompos)):
         if embeddedcompos[i]['name'] == "Icon":
             icon = True
     if (icon):
@@ -79,22 +79,3 @@ def top_bar_w_banner(top_bar, banner, data, top_bar_bottom_edge, banner_top_edge
     if (banner_top_edge > top_bar_bottom_edge):
         return 45
     return -1
-
-##############################
-### Color Detection Needed ###
-##############################
-
-
-# def btn_links(banner, link):
-#     if (banner and link):
-#         return "Error"
-#     return "Success"
-
-##############################
-### Icon Detection Needed  ###
-##############################
-
-# def close_affordance(banner, close):
-#     if (banner and close):
-#         return "Error"
-#     return "Success"

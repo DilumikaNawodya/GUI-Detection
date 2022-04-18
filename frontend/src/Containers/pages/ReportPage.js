@@ -4,9 +4,11 @@ import ReportContainer from "../../Components/Report/reportcontainer";
 import { data } from "./GuidelineData";
 
 function ReportPage() {
-  const violatedIds = new Set(JSON.parse(localStorage.getItem("violatedIds")));
+  const violatedIds = JSON.parse(localStorage.getItem("violatedIds"));
 
-  const datas = data.filter((a) => violatedIds.has(a.id));
+  const violatedIdSet = new Set(violatedIds["violated_ids"]);
+
+  const datas = data.filter((a) => violatedIdSet.has(a.id));
 
   return (
     <Container>

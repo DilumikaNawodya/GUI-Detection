@@ -7,7 +7,7 @@ def bottomappbar_main(data, i, ncomponents):
         FAB = False
         keyboard = False
         snackbar = False
-        for j in len(embeddedcompos):
+        for j in range(len(embeddedcompos)):
             if (embeddedcompos[j]['name'] == "Floating Action Button"):
                 FAB = True
                 FAB_top_edge = embeddedcompos[j]['position']['column_min']

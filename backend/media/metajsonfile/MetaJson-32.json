@@ -1,0 +1,46 @@
+[
+  {
+    "Type": "Navigation Drawer",
+    "Text": "",
+    "Bounds": [0, 0, 390, 504],
+    "Children": [
+      {
+        "Type": "Text",
+        "Text": "Mail",
+        "Bounds": [26, 64, 75, 95]
+      },
+      {
+        "Type": "Text",
+        "Text": "scott_t88@gmail.com",
+        "Bounds": [24, 101, 218, 124]
+      },
+      {
+        "Type": "Text",
+        "Text": "Inbox",
+        "Bounds": [103, 179, 149, 200],
+        "Children": [
+          {
+            "Type": "Text",
+            "Text": "Sent",
+            "Bounds": [24, 66, 74, 92]
+          }
+        ]
+      },
+      {
+        "Type": "Text",
+        "Text": "Outbox",
+        "Bounds": [103, 246, 164, 268]
+      },
+      {
+        "Type": "Text",
+        "Text": "Summer Vacation Planning Thota pissuda yako",
+        "Bounds": [103, 312, 365, 337]
+      },
+      {
+        "Type": "Text",
+        "Text": "Archive",
+        "Bounds": [101, 381, 167, 401]
+      }
+    ]
+  }
+]

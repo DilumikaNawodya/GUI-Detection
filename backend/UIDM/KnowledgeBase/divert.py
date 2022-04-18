@@ -15,8 +15,8 @@ from .Components.TopAppBar import topappbar_main
 def divert(data):
     Ids = []
     ncomponents = len(data['combinedjson']['compos'])
-    screen_size = [data['combinedjson']['img_shape']
-                   [0], data['combinedjson']['img_shape'][1]]
+    screen_size = [data['combinedjson']['screen_size']
+                   [0], data['combinedjson']['screen_size'][1]]
     screen_size
     for i in range(ncomponents):
         name = data['combinedjson']['compos'][i]["name"]

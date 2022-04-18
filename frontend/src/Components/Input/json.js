@@ -1,6 +1,5 @@
 import { Button, makeStyles } from "@material-ui/core";
-import { PinDropSharp } from "@material-ui/icons";
-import React, { useState } from "react";
+import React from "react";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -19,7 +18,7 @@ export default function UploadJSON(props) {
 
   function onFileChange(e) {
     props.fileUp(e.target.files[0]);
-    showFileStatus(e)
+    showFileStatus(e);
   }
 
   function showFileStatus(e) {
@@ -27,14 +26,13 @@ export default function UploadJSON(props) {
     div.style.display = "block";
   }
 
-
   return (
     <div>
       <Button className={classes.root} variant="contained" component="label">
         Upload JSON
         <input type="file" onChange={onFileChange} hidden />
       </Button>
-      <div className={classes.div} id="file-status" style={{display: "None"}}>
+      <div className={classes.div} id="file-status" style={{ display: "None" }}>
         JSON file upload successful
       </div>
     </div>

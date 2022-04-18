@@ -1,6 +1,5 @@
 import { Button, makeStyles } from "@material-ui/core";
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 // import UploadFileService from "../../Services/ImageServices/uploadFileService";
 
 const useStyle = makeStyles((theme) => ({
@@ -20,7 +19,7 @@ export default function UploadImage(props) {
 
   function onImageChange(e) {
     props.imageUp(e.target.files[0]);
-    showImageStatus(e)
+    showImageStatus(e);
   }
 
   function showImageStatus(e) {
@@ -28,17 +27,19 @@ export default function UploadImage(props) {
     div.style.display = "block";
   }
 
-
   return (
     <div>
-      <Button className={classes.root} variant="contained" component="label" >
+      <Button className={classes.root} variant="contained" component="label">
         Upload image
         <input type="file" onChange={onImageChange} hidden />
       </Button>
-      <div className={classes.div} id="image-status" style={{display: "None"}}>
+      <div
+        className={classes.div}
+        id="image-status"
+        style={{ display: "None" }}
+      >
         Image upload successful
       </div>
     </div>
   );
 }
-

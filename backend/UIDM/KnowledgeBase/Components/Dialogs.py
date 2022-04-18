@@ -3,21 +3,19 @@ def dialogs_main(data, i, ncomponents):
     dialog = data['combinedjson']['compos'][i]
     embeddedcompos = dialog.get('embeddedcompos')
     embeddedtext = dialog.get('embeddedtext')
-    textmeta = dialog.get('textmeta')
 
     # Call Functions
     if (embeddedcompos):
         Ids.append(dialog_actions(embeddedcompos))
     if (embeddedtext):
         Ids.append(dialog_title_content(dialog, embeddedtext))
-        if (textmeta):
-            Ids.append(dialog_title(embeddedtext, textmeta))
+        Ids.append(dialog_title(embeddedtext))
     return Ids
 
 
 def dialog_actions(embeddedcompos):
     button_count = 0
-    for i in len(embeddedcompos):
+    for i in range(len(embeddedcompos)):
         if embeddedcompos[i]['name'] == "Button":
             button_count += 1
     if (button_count == 2):
@@ -25,8 +23,8 @@ def dialog_actions(embeddedcompos):
     return 9
 
 
-def dialog_title(embeddedtext, textmeta):
-    if (embeddedtext[0]['text_content'] == textmeta):
+def dialog_title(embeddedtext):
+    if (embeddedtext[0]['text_content'] == embeddedtext[0]['text_meta']):
         return -1
     return 11
 

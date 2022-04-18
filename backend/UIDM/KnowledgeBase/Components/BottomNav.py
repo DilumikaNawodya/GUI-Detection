@@ -3,11 +3,10 @@ def bottomNav_main(data, i, ncomponents):
     bottomNav = data['combinedjson']['compos'][i]
     embeddedcompos = bottomNav.get('embeddedcompos')
     embeddedtext = bottomNav.get('embeddedtext')
-    text_meta = bottomNav.get('textmeta')
     tabs = False
     icon_count = 0
     if (embeddedcompos):
-        for j in len(embeddedcompos):
+        for j in range(len(embeddedcompos)):
             if (embeddedcompos[j]['name'] == "Icon"):
                 icon_count += 1
             if (embeddedcompos[j]['name'] == "Tabs"):
@@ -18,8 +17,8 @@ def bottomNav_main(data, i, ncomponents):
     if (embeddedtext):
         Ids.append(text_size(embeddedtext))
         Ids.append(text_lines_banner(embeddedtext))
-        if (text_meta):
-            Ids.append(text_trunacate(text_meta, embeddedtext))
+        Ids.append(text_trunacate(embeddedtext))
+
     return Ids
 
 
@@ -37,10 +36,10 @@ def tabs_w_bottomnav(tabs, bottomnav):
     return -1
 
 
-def text_trunacate(text_meta, embeddedtext):
-    for i in len(embeddedtext):
-        embeddedtext[i]['text_content'] == text_meta[i]
-        return -1
+def text_trunacate(embeddedtext):
+    for i in range(len(embeddedtext)):
+        if (embeddedtext[i]['text_content'] == embeddedtext[i]['text_meta']):
+            return -1
     return 52
 
 
@@ -58,14 +57,3 @@ def text_lines_banner(embeddedtext):
         if (embeddedtext[i]['height'] == height*2 or embeddedtext[i]['height'] == height//2):
             return 54
     return -1
-
-
-##############################
-### Color Detection Needed ###
-##############################
-
-# def destination_color(destination_colors):
-#     color_set = set(destination_colors)
-#     if (color_set > 2):
-#         return "Error"
-#     return "Success"

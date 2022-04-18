@@ -103,13 +103,16 @@ import Nav_Draw_Height_0 from "../../Assests/Nav_Draw_Height_0.png";
 import Text_Regular_FAB from "../../Assests/Text_Regular_FAB.png";
 import List_Visuals_Center from "../../Assests/List_Visuals_Center.png";
 import Multiple_FAB from "../../Assests/Multiple_FAB.png";
+import Divider_per_item from "../../Assests/Divider_per_item.png";
+import NavDraw_Divider from "../../Assests/NavDraw_Divider.png";
+import image_on_app_bar from "../../Assests/image_on_app_bar.png";
 
 export const data = [
   {
     id: 1,
     status: true,
     title: "Appbar Bottom Actions",
-    path: ["Appbar:Bottom", "Usage", "Error"],
+    path: ["Appbar: Bottom", "Usage", "Error"],
     content:
       "Bottom app bar provides convenient access to actions; a bottom app bar should not be used for screens with one or no actions (Other than a FAB)",
     ok_image: app_bar_actions_1,
@@ -119,7 +122,7 @@ export const data = [
     id: 2,
     status: true,
     title: "Cented Floating Action Button",
-    path: ["Appbar:Bottom", "Anatomy", "Permission"],
+    path: ["Appbar: Bottom", "Anatomy", "Permission"],
     content:
       "Use bottom app bars on home screens that feature a navigation menu control and a prominent action (such as a FAB). A minimum of one and a maximum of two additional actions can be placed on the opposite side of the bar.",
     ok_image: centered_FAB,
@@ -128,7 +131,7 @@ export const data = [
     id: 4,
     status: true,
     title: "End Floating Action Button",
-    path: ["Appbar:Bottom", "Anatomy", "Permission"],
+    path: ["Appbar: Bottom", "Anatomy", "Permission"],
     content:
       "Use a FAB on secondary screens that require a floating action button and three to four additional actions.",
     ok_image: end_FAB,
@@ -137,7 +140,7 @@ export const data = [
     id: 5,
     status: true,
     title: "No Floating Action Button",
-    path: ["Appbar:Bottom", "Anatomy", "Permission"],
+    path: ["Appbar: Bottom", "Anatomy", "Permission"],
     content:
       "When no floating action button is needed, the bottom app bar can accommodate a navigation menu icon and up to four actions aligned on the opposing edge.",
     ok_image: No_FAB,
@@ -146,7 +149,7 @@ export const data = [
     id: 6,
     status: true,
     title: "Landscape Floating Action Button",
-    path: ["Appbar:Bottom", "Anatomy", "Permission"],
+    path: ["Appbar: Bottom", "Anatomy", "Permission"],
     content:
       "In landscape orientation, actions remain aligned to screen edges for easy handheld access",
     ok_image: Landscape_FAB,
@@ -155,7 +158,7 @@ export const data = [
     id: 7,
     status: true,
     title: "Floating Action Button placement",
-    path: ["Appbar:Bottom", "Anatomy", "Error"],
+    path: ["Appbar: Bottom", "Anatomy", "Error"],
     content:
       "Do not place a FAB outside of a bottom app bar, as it makes it harder to reach.",
     notok_image: Outside_FAB,
@@ -164,7 +167,7 @@ export const data = [
     id: 8,
     status: true,
     title: "Bottom App Bar with Keyboard",
-    path: ["Appbar:Bottom", "Behavior", "Error"],
+    path: ["Appbar: Bottom", "Behavior", "Error"],
     content:
       "A keyboard can temporarily cover a bottom app bar; Don't attach a bottom app bar to the top of the keyboard",
     ok_image: cover_bottom_bar_1,
@@ -957,4 +960,31 @@ export const data = [
     ok_image: Nav_Draw_Height_1,
     notok_image: Nav_Draw_Height_0,
   },
+  {
+    id: 99,
+    status: true,
+    title: "Divider Per Item",
+    path: ["Lists", "Anatomy", "Permission"],
+    content:
+      "Place a divider between rows with lots of content, such as those with three-line lists.",
+    ok_image: Divider_per_item,
+  },
+  {
+    id: 100,
+    status: true,
+    title: "Divider per Destination",
+    path: ["Navigation Drawer", "Anatomy", "Error"],
+    content: "Don’t use dividers to separate individual destinations.",
+    notok_image: NavDraw_Divider,
+  },
+  {
+    id: 102,
+    status: true,
+    title: "Image in the Top Appbar",
+    path: ["Appbar: Top", "Anatomy", "Error"],
+    content:
+      "Don’t place imagery in a bar that makes the top app bar’s text and icons illegible.",
+    notok_image: image_on_app_bar,
+  },
 ];
+//
