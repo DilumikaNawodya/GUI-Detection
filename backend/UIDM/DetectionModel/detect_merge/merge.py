@@ -11,7 +11,7 @@ from .Element import Element
 
 def show_elements(org_img, eles, show=True, win_name='element', wait_key=0, shown_resize=None, line=2):
     color_map = {'Text': (0, 0, 255), 'Compo': (0, 255, 0), 'Block': (
-        0, 255, 0), 'Text Content': (255, 0, 255)}
+        255, 0, 0), 'Text Content': (255, 0, 255)}
     img = org_img.copy()
     for ele in eles:
         color = color_map[ele.category]
