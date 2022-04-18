@@ -1,8 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-
 import {
   Button,
   Card,
@@ -13,11 +8,14 @@ import {
   MenuItem,
   Select,
   Typography,
-  useTheme,
 } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import EventAvailableOutlinedIcon from "@material-ui/icons/EventAvailableOutlined";
-import GetComponentItem from "../../Services/getComponentItem";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import GetComponentItem from "../../Services/getComponentItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {

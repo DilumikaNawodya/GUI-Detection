@@ -1,9 +1,9 @@
 def fab_main(data, i, ncomponents):
+    print("FAB here")
     Ids = []
     FAB = data['combinedjson']['compos'][i]
     embeddedcompos = FAB.get('embeddedcompos')
     embeddedtext = FAB.get('embeddedtext')
-    textmeta = FAB.get('textmeta')
 
     btn_count = 0
     bottom_appbar = False
@@ -12,13 +12,13 @@ def fab_main(data, i, ncomponents):
             btn_count += 1
         if (data['combinedjson']['compos'][j]['name'] == "Cards"):
             Card = data['combinedjson']['compos'][j]
+            Ids.append(FAB_with_Cards(FAB, Card))
         if (data['combinedjson']['compos'][j]['name'] == "Appbar: Bottom"):
             bottom_appbar = True
 
     # Call Functions
     Ids.append(FAB_count(btn_count))
     Ids.append(Text_Regular_FAB(FAB, embeddedtext))
-    Ids.append(FAB_with_Cards(FAB, Card))
     Ids.append(ExFAB_Bottom_Appbar(bottom_appbar, FAB))
 
     if (embeddedcompos):
@@ -26,10 +26,9 @@ def fab_main(data, i, ncomponents):
         if (embeddedtext):
             Ids.append(ExFAB_Only_Icon(embeddedcompos, embeddedtext))
             Ids.append(ExFAB_Text_Wrap(embeddedtext))
-            if (textmeta):
-                Ids.append(ExFAB_Truncate(embeddedtext, textmeta))
+            Ids.append(ExFAB_Truncate(embeddedtext))
 
-    return
+    return Ids
 
 
 def FAB_count(btn_count):
@@ -39,7 +38,7 @@ def FAB_count(btn_count):
 
 
 def Element_Front_FAB(embeddedcompos):
-    for i in len(embeddedcompos):
+    for i in range(len(embeddedcompos)):
         if embeddedcompos[i]['name'] == "Badge":
             return 73
     return -1
@@ -54,7 +53,7 @@ def Text_Regular_FAB(FAB, embeddedtext):
 
 def FAB_with_Cards(FAB, Card):
     cardembeddedcompos = Card.get('embeddedcompos')
-    for i in len(cardembeddedcompos):
+    for i in range(len(cardembeddedcompos)):
         if cardembeddedcompos[i]['name'] == "Floating Action Button":
             if cardembeddedcompos[i]['id'] == FAB['id']:
                 return 77
@@ -68,8 +67,8 @@ def ExFAB_Only_Icon(embeddedcompos, embeddedtext):
     return -1
 
 
-def ExFAB_Truncate(embeddedtext, textmeta):
-    if (embeddedtext[0]['text_content'] == textmeta['text_content']):
+def ExFAB_Truncate(embeddedtext):
+    if (embeddedtext[0]['text_content'] == embeddedtext[0]['text_meta']):
         return -1
     return 82
 

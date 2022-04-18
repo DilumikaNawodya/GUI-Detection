@@ -12,7 +12,7 @@ def lists_main(data, i, ncomponents, screen_size):
 
 def thumbnail_loc(embeddedcompos, screen_size):
     thumbnail = -1
-    for i in len(embeddedcompos):
+    for i in range(len(embeddedcompos)):
         if embeddedcompos[i]['name'] == "thumbnail":
             thumbnail = i
             break
@@ -26,14 +26,11 @@ def thumbnail_loc(embeddedcompos, screen_size):
 
 
 def divider_per_item(embeddedcompos):
-    divider = False
-    for i in len(embeddedcompos):
+    divider = 0
+    for i in range(len(embeddedcompos)):
         if embeddedcompos[i]['name'] == "Divider":
-            divider = True
+            divider += 1
     if (len(embeddedcompos)//2 > 1):
-        if (divider):
-            return "Success"
-        if ((embeddedcompos[1]['position']['row_max']-embeddedcompos[1]['position']['row_max']) > 5):
-            return "Caution"
-        return "Error"
-    return "Success"
+        if (divider == 0):
+            return 99
+    return -1

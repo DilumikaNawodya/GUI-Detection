@@ -3,16 +3,15 @@ def tabs_main(data, i, ncomponents):
     Tab = data['combinedjson']['compos'][i]
     embeddedcompos = Tab.get('embeddedcompos')
     embeddedtext = Tab.get('embeddedtext')
-    textmeta = Tab.get('textmeta')
 
     # Call Functions
     if (embeddedtext):
         Ids.append(tab_rows(embeddedtext))
         Ids.append(tabs_text_shrink(embeddedtext))
+        Ids.append(tabs_truncate(embeddedtext))
         if (embeddedcompos):
             Ids.append(tab_label(embeddedcompos, embeddedtext))
-        if (textmeta):
-            Ids.append(tabs_truncate(embeddedtext, textmeta))
+
     return Ids
 
 
@@ -44,10 +43,10 @@ def tabs_text_shrink(embeddedtext):
     return -1
 
 
-def tabs_truncate(embeddedtext, text_meta):
+def tabs_truncate(embeddedtext):
     text_consistency = True
-    for i in len(embeddedtext):
-        if embeddedtext[i]['text_content'] != text_meta[i]:
+    for i in range(len(embeddedtext)):
+        if embeddedtext[i]['text_content'] != embeddedtext[i]['text_meta']:
             text_consistency = False
     if (text_consistency == True):
         return -1

@@ -2,14 +2,12 @@ import {
   Container,
   FormControl,
   InputLabel,
-  Select,
+  makeStyles,
   MenuItem,
-  Button,
+  Select,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
 import ReportContainer from "../../Components/Report/reportcontainer";
-import SearchIcon from "@material-ui/icons/Search";
 import { data } from "./GuidelineData";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,20 +18,37 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  button: {
-    marginTop: theme.spacing(3.5),
-  },
 }));
 
 function GuidelinePage() {
   const classes = useStyles();
-  const datas = data;
 
-  const [filters, setFilters] = useState({});
+  const [filterKeys, setFilterKeys] = useState({
+    0: "",
+    1: "",
+    2: "",
+  });
 
-  const updateFilters = (searchparams) => {
-    setFilters(searchparams);
+  const [datas, setDatas] = useState(data);
+
+  const changeHandler = (e) => {
+    setFilterKeys({ ...filterKeys, [e.target.name]: e.target.value });
   };
+
+  React.useEffect(() => {
+    if (!Object.values(filterKeys).every((value) => !value))
+      setDatas(
+        data.filter(function (item) {
+          for (const key in filterKeys) {
+            if (filterKeys[key])
+              if (filterKeys[key] !== item.path[key]) {
+                return false;
+              }
+          }
+          return true;
+        })
+      );
+  }, [filterKeys]);
 
   return (
     <Container>
@@ -43,7 +58,11 @@ function GuidelinePage() {
       <hr />
       <FormControl className={classes.formControl}>
         <InputLabel>Component</InputLabel>
-        <Select className={classes.selectEmpty}>
+        <Select
+          className={classes.selectEmpty}
+          name="0"
+          onChange={changeHandler}
+        >
           <MenuItem value={"Appbar: Bottom"}>Appbar: Bottom</MenuItem>
           <MenuItem value={"Appbar: Top"}>Appbar: Top</MenuItem>
           <MenuItem value={"Bottom Navigation"}>Bottom Navigation</MenuItem>
@@ -62,7 +81,11 @@ function GuidelinePage() {
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel>CKA</InputLabel>
-        <Select className={classes.selectEmpty}>
+        <Select
+          className={classes.selectEmpty}
+          name="1"
+          onChange={changeHandler}
+        >
           <MenuItem value={"Anatomy"}>Anatomy</MenuItem>
           <MenuItem value={"Behavior"}>Behavior</MenuItem>
           <MenuItem value={"Placement"}>Placement</MenuItem>
@@ -71,20 +94,16 @@ function GuidelinePage() {
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel>Severity</InputLabel>
-        <Select className={classes.selectEmpty}>
+        <Select
+          className={classes.selectEmpty}
+          name="2"
+          onChange={changeHandler}
+        >
           <MenuItem value={"Permission"}>Permission</MenuItem>
           <MenuItem value={"Error"}>Error</MenuItem>
           <MenuItem value={"Caution"}>Caution</MenuItem>
         </Select>
       </FormControl>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        className={classes.button}
-      >
-        <SearchIcon />
-      </Button>
 
       {datas.map((item, index) => {
         return <ReportContainer data={item} />;

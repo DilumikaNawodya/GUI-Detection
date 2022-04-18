@@ -1,7 +1,6 @@
-import React from "react";
-import Footer from "../Components/Common/footer";
-import Header from "../Components/Common/header";
 import { Container, CssBaseline, makeStyles } from "@material-ui/core";
+import React from "react";
+import Header from "../Components/Common/header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
