@@ -404,12 +404,13 @@ def compo_block_recognition(binary, compos, block_side_length=0.15):
 
 
 def block_detection(compos, img_shape, margin=10):
+    
     height = img_shape[0]
     width = img_shape[1]
     
     segments = []
     
-    lines = [[(0, 0), (width, 0)], [(0, height), (width, height)]]
+    lines_1 = [[(0, 0), (width, 0)], [(0, height), (width, height)]]
     
     for compo in compos:
         
@@ -424,26 +425,65 @@ def block_detection(compos, img_shape, margin=10):
         i = [cod_1, cod_2, cod_3, cod_4]
         
         if i[0] == i[2] and i[1] == i[3]:
-            lines.append([(i[0][0], i[0][1]), (i[1][0], i[1][1])])
+            lines_1.append([(i[0][0], i[0][1]), (i[1][0], i[1][1])])
         elif 0 <= i[0][0] < margin and (width-margin) <= i[1][0] < width:
-            lines.append([(i[0][0], i[0][1]), (i[1][0], i[1][1])])
-            lines.append([(i[2][0], i[2][1]), (i[3][0], i[3][1])])
+            lines_1.append([(i[0][0], i[0][1]), (i[1][0], i[1][1])])
+            lines_1.append([(i[2][0], i[2][1]), (i[3][0], i[3][1])])
     
-    lines = sorted(lines)
+    lines_1 = sorted(lines_1)
 
-    for i in range(len(lines)-1):
+    for i in range(len(lines_1)-1):
         c = {
             'id': None, 
             'class': "Block",
-            'column_min': lines[i][0][0], 
-            'row_min': lines[i][0][1],
-            'column_max': lines[i+1][1][0],
-            'row_max': lines[i+1][1][1],
-            'width': lines[i+1][1][0] - lines[i][0][0],
-            'height': lines[i+1][1][1] - lines[i][0][1]
+            'column_min': lines_1[i][0][0], 
+            'row_min': lines_1[i][0][1],
+            'column_max': lines_1[i+1][1][0],
+            'row_max': lines_1[i+1][1][1],
+            'width': lines_1[i+1][1][0] - lines_1[i][0][0],
+            'height': lines_1[i+1][1][1] - lines_1[i][0][1]
         }
         
         segments.append(c)
+        
+    
+    lines_2 = [[(0, 0), (0, height)], [(width, 0), (width, height)]]
+    
+    for compo in compos:
+        
+        compo_bbox = compo.bbox
+        col_min, row_min, col_max, row_max = compo_bbox.put_bbox()
+        
+        cod_1 = [col_min, row_min]
+        cod_2 = [col_max, row_min]
+        cod_3 = [col_min, row_max]
+        cod_4 = [col_max, row_max]
+        
+        i = [cod_1, cod_2, cod_3, cod_4]
+        
+        if i[0] == i[1] and i[2] == i[3]:
+            lines_2.append([(i[0][0], i[0][1]), (i[2][0], i[2][1])])
+        elif 0 <= i[0][1] < margin and (height-margin) <= i[2][1] < height:
+            lines_2.append([(i[0][0], i[0][1]), (i[2][0], i[2][1])])
+            lines_2.append([(i[1][0], i[1][1]), (i[3][0], i[3][1])])
+    
+    lines_2 = sorted(lines_2)
+
+    for i in range(len(lines_2)-1):
+        c = {
+            'id': None, 
+            'class': "Block",
+            'column_min': lines_2[i][0][0], 
+            'row_min': lines_2[i][0][1],
+            'column_max': lines_2[i+1][1][0],
+            'row_max': lines_2[i+1][1][1],
+            'width': lines_2[i+1][1][0] - lines_2[i][0][0],
+            'height': lines_2[i+1][1][1] - lines_2[i][0][1]
+        }
+        
+        segments.append(c)
+    
+    
     return segments
 
 
