@@ -13,7 +13,7 @@ import { data } from "./GuidelineData";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(2),
-    minWidth: 120,
+    minWidth: 250,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -80,7 +80,7 @@ function GuidelinePage() {
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
-        <InputLabel>CKA</InputLabel>
+        <InputLabel>Component Knowledge Aspect</InputLabel>
         <Select
           className={classes.selectEmpty}
           name="1"
@@ -93,7 +93,7 @@ function GuidelinePage() {
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
-        <InputLabel>Severity</InputLabel>
+        <InputLabel>Severity of Violations</InputLabel>
         <Select
           className={classes.selectEmpty}
           name="2"
