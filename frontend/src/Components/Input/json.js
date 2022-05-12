@@ -30,7 +30,7 @@ export default function UploadJSON(props) {
     <div>
       <Button className={classes.root} variant="contained" component="label">
         Upload JSON
-        <input type="file" onChange={onFileChange} hidden />
+        <input type="file" onChange={onFileChange} accept=".json" hidden />
       </Button>
       <div className={classes.div} id="file-status" style={{ display: "None" }}>
         JSON file upload successful
