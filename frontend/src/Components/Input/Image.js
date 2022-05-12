@@ -31,7 +31,7 @@ export default function UploadImage(props) {
     <div>
       <Button className={classes.root} variant="contained" component="label">
         Upload image
-        <input type="file" onChange={onImageChange} hidden />
+        <input type="file" onChange={onImageChange} accept="image/*" hidden />
       </Button>
       <div
         className={classes.div}
